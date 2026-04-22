@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://byxe68xmad5i"]
+
+[ext_resource type="Script" uid="uid://dkqrlmj2i1m73" path="res://character_body_3d.gd" id="1_wk3ks"]
+[ext_resource type="PackedScene" uid="uid://cf5trad4xp68b" path="res://hand.glb" id="2_d3vym"]
+
+[node name="Hand" type="Node3D" unique_id=1401876891]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=120564580]
+motion_mode = 1
+script = ExtResource("1_wk3ks")
+
+[node name="hand" parent="CharacterBody3D" unique_id=2119859285 instance=ExtResource("2_d3vym")]
+transform = Transform3D(1.1924881e-06, 0, -100, 0, 100, 0, 100, 0, 1.1924881e-06, 0, 0, 0)
