@@ -43,7 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 script = ExtResource("2_uu6xs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lose Condition" unique_id=2030921705]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0, -32)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28975964, -3.030384, -6.380924)
 shape = SubResource("BoxShape3D_r0du0")
 
 [connection signal="area_entered" from="Lose Condition" to="Lose Condition" method="_on_area_entered"]
