@@ -5,6 +5,7 @@ var height = 0
 var ground_plane = Plane(Vector3.UP,height)
 var speed_factor : float
 var hand_target_y
+var arm_length=1
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -12,8 +13,23 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		print(event.relative)
-		position.x += event.relative.x * speed_factor
-		position.z += event.relative.y * speed_factor
+		if position.x >-arm_length and position.x<arm_length:
+			position.x += event.relative.x * speed_factor
+		elif position.x <-arm_length and event.relative.x * speed_factor>0:
+			position.x += event.relative.x * speed_factor
+		elif position.x >arm_length and event.relative.x * speed_factor<0:
+			position.x += event.relative.x * speed_factor
+		else:
+			pass
+			
+		if position.z >-arm_length and position.z<arm_length:
+			position.z += event.relative.y * speed_factor
+		elif position.z <-arm_length and event.relative.y * speed_factor>0:
+			position.z += event.relative.y * speed_factor
+		elif position.z >arm_length and event.relative.y * speed_factor<0:
+			position.z += event.relative.y * speed_factor
+		else:
+			pass
 	if Input.is_action_pressed("Scroll_Up"):
 		if panic_mode==false:
 			velocity.y += 250*speed_factor
@@ -33,6 +49,11 @@ func _unhandled_input(event):
 			panic_mode=false
 
 func _process(delta):
+	if panic_mode == true:
+		arm_length=12
+	else:
+		arm_length=10
+	
 	if panic_mode==false:
 		speed_factor = delta
 	else:

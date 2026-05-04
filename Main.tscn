@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://diekpt4ps6pil"]
 
+[ext_resource type="Script" uid="uid://pxnvd1mv5f2e" path="res://robody.gd" id="1_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://byxe68xmad5i" path="res://Hand.tscn" id="1_uu6xs"]
 [ext_resource type="PackedScene" uid="uid://b0maeasvi2wsc" path="res://Foods.tscn" id="2_r0du0"]
 [ext_resource type="Script" uid="uid://b6nbi865n47ti" path="res://lose_condition.gd" id="2_uu6xs"]
@@ -29,7 +30,10 @@ environment = SubResource("Environment_r0du0")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Hand" parent="." unique_id=1401876891 instance=ExtResource("1_uu6xs")]
+[node name="Robody" type="Node3D" parent="." unique_id=719538865]
+script = ExtResource("1_cm0pq")
+
+[node name="Hand" parent="Robody" unique_id=1401876891 instance=ExtResource("1_uu6xs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.378766, 0, 2.2498302)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1254246641]

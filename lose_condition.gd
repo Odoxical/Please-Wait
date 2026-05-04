@@ -6,5 +6,5 @@ extends Area3D
 
 
 func _on_area_entered(body: Node3D) -> void:
-	if body.is_in_group("Food"):
+	if body.is_in_grouwasdp("Food"):
 		print("You messy robot")
