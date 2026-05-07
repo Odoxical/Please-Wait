@@ -14,20 +14,20 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		print(event.relative)
 		if position.x >-arm_length and position.x<arm_length:
-			position.x += event.relative.x * speed_factor
+			position.x += event.relative.y * speed_factor
 		elif position.x <-arm_length and event.relative.x * speed_factor>0:
-			position.x += event.relative.x * speed_factor
+			position.x += event.relative.y * speed_factor
 		elif position.x >arm_length and event.relative.x * speed_factor<0:
-			position.x += event.relative.x * speed_factor
+			position.x += event.relative.y * speed_factor
 		else:
 			pass
 			
 		if position.z >-arm_length and position.z<arm_length:
-			position.z += event.relative.y * speed_factor
+			position.z -= event.relative.x * speed_factor
 		elif position.z <-arm_length and event.relative.y * speed_factor>0:
-			position.z += event.relative.y * speed_factor
+			position.z -= event.relative.x * speed_factor
 		elif position.z >arm_length and event.relative.y * speed_factor<0:
-			position.z += event.relative.y * speed_factor
+			position.z -= event.relative.x * speed_factor
 		else:
 			pass
 	if Input.is_action_pressed("Scroll_Up"):

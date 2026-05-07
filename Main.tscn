@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://diekpt4ps6pil"]
 
-[ext_resource type="Script" uid="uid://pxnvd1mv5f2e" path="res://robody.gd" id="1_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://dxv3muv7ryvob" path="res://foot.tscn" id="1_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://byxe68xmad5i" path="res://Hand.tscn" id="1_uu6xs"]
 [ext_resource type="PackedScene" uid="uid://b0maeasvi2wsc" path="res://Foods.tscn" id="2_r0du0"]
 [ext_resource type="Script" uid="uid://b6nbi865n47ti" path="res://lose_condition.gd" id="2_uu6xs"]
@@ -31,13 +31,24 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Robody" type="Node3D" parent="." unique_id=719538865]
-script = ExtResource("1_cm0pq")
+
+[node name="Foot 1" parent="Robody" unique_id=1809652481 instance=ExtResource("1_cm0pq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, -50, 28)
+
+[node name="Foot 2" parent="Robody" unique_id=1344933848 instance=ExtResource("1_cm0pq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, -50, -52)
+
+[node name="Foot 3" parent="Robody" unique_id=1703887064 instance=ExtResource("1_cm0pq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104, -50, 28)
+
+[node name="Foot 4" parent="Robody" unique_id=1353529297 instance=ExtResource("1_cm0pq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, -50, -52)
 
 [node name="Hand" parent="Robody" unique_id=1401876891 instance=ExtResource("1_uu6xs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.378766, 0, 2.2498302)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.621234, 0, 0.24983025)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1254246641]
-transform = Transform3D(1, 1.7763568e-15, 0, -1.7763567e-15, 0.8701493, 0.4927882, -3.5527137e-15, -0.49278814, 0.8701494, -2.0233407, 5.0001774, 7.4939303)
+transform = Transform3D(-4.3711392e-08, -0.49278814, 0.8701494, -1.7763565e-15, 0.8701493, 0.4927882, -1, 2.1540453e-08, -3.803544e-08, 5.9766593, 5.0001774, 1.4939303)
 
 [node name="Foods" parent="." unique_id=938991637 instance=ExtResource("2_r0du0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -170,10 +170,6 @@ points = PackedVector3Array(-2.3746815, 0.40048888, -1.2279485, -1.474, 0.072965
 
 [node name="Foods" type="Node3D" unique_id=938991637]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=2041131666]
-transform = Transform3D(-0.0131943505, 0, 0.999913, 0, 1, 0, -0.999913, 0, -0.0131943505, 4, 1, 0)
-fov = 70.514984
-
 [node name="Steak \'n Apple" type="Node3D" parent="." unique_id=1821846949]
 
 [node name="Apple Body" type="RigidBody3D" parent="Steak \'n Apple" unique_id=1894963002]
