@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://byxe68xmad5i" path="res://Hand.tscn" id="1_uu6xs"]
 [ext_resource type="PackedScene" uid="uid://b0maeasvi2wsc" path="res://Foods.tscn" id="2_r0du0"]
 [ext_resource type="Script" uid="uid://b6nbi865n47ti" path="res://lose_condition.gd" id="2_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Floor.glb" id="5_fos0i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_glv2v"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -20,6 +21,9 @@ glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r0du0"]
 size = Vector3(91, 1, 91)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fos0i"]
+size = Vector3(201, 1, 191)
 
 [node name="Node3D" type="Node3D" unique_id=753034135]
 
@@ -60,5 +64,14 @@ script = ExtResource("2_uu6xs")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lose Condition" unique_id=2030921705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28975964, -3.030384, -6.380924)
 shape = SubResource("BoxShape3D_r0du0")
+
+[node name="Floor" parent="." unique_id=1462755162 instance=ExtResource("5_fos0i")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -16, -54, -94)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=749133787]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=1857753862]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.00001, 0, -80)
+shape = SubResource("BoxShape3D_fos0i")
 
 [connection signal="area_entered" from="Lose Condition" to="Lose Condition" method="_on_area_entered"]
