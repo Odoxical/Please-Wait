@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://x4gwoaw0iv4p"
-path="res://.godot/imported/Floor.glb-6a78a70fd1587aa56b116e0c01063c1d.scn"
+uid="uid://dwsxwhj4mqc4a"
+path="res://.godot/imported/Dev_Hand_Neo.glb-fb6ee6cf203fe49116bbf3bc929b475a.scn"
 
 [deps]
 
-source_file="res://Floor.glb"
-dest_files=["res://.godot/imported/Floor.glb-6a78a70fd1587aa56b116e0c01063c1d.scn"]
+source_file="res://Models/Dev_Hand_Neo.glb"
+dest_files=["res://.godot/imported/Dev_Hand_Neo.glb-fb6ee6cf203fe49116bbf3bc929b475a.scn"]
 
 [params]
 

@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://ci3gbjh5v7daf"]
+
+[ext_resource type="PackedScene" uid="uid://bj1bbmpmqnrjv" path="res://scenes/quadruped.tscn" id="1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_errlg"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_bl13t"]
+sky_material = SubResource("ProceduralSkyMaterial_errlg")
+
+[sub_resource type="Environment" id="Environment_iyx0m"]
+background_mode = 2
+sky = SubResource("Sky_bl13t")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1"]
+size = Vector2(20, 20)
+
+[node name="TestScene" type="Node3D" unique_id=696688243]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2060039367]
+environment = SubResource("Environment_iyx0m")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=13058507]
+transform = Transform3D(0.7196307, 0.61571187, 0.32098386, -0.6943569, 0.638123, 0.33266726, 0, -0.4622749, 0.8867367, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1642665633]
+mesh = SubResource("PlaneMesh_1")
+
+[node name="Quadruped" parent="." unique_id=1222357596 instance=ExtResource("1")]

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FootConfig" format=3 uid="uid://bbkdx3c4vg358"]
+
+[ext_resource type="Script" uid="uid://dtb04mb8clbaa" path="res://resources/foot_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+move_speed = 24.0
+lift_height = 0.0
+max_reach = 0.35
+step_duration = 1.0

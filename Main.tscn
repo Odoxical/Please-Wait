@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://diekpt4ps6pil"]
+[gd_scene format=3 uid="uid://c6l4410t2ax4j"]
 
-[ext_resource type="PackedScene" uid="uid://dxv3muv7ryvob" path="res://foot.tscn" id="1_cm0pq"]
-[ext_resource type="PackedScene" uid="uid://byxe68xmad5i" path="res://Hand.tscn" id="1_uu6xs"]
-[ext_resource type="PackedScene" uid="uid://b0maeasvi2wsc" path="res://Foods.tscn" id="2_r0du0"]
-[ext_resource type="Script" uid="uid://b6nbi865n47ti" path="res://lose_condition.gd" id="2_uu6xs"]
-[ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Floor.glb" id="5_fos0i"]
+[ext_resource type="PackedScene" path="res://foot.tscn" id="1_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://8e7b3wsq3vmw" path="res://Hand.tscn" id="1_uu6xs"]
+[ext_resource type="PackedScene" path="res://Foods.tscn" id="2_r0du0"]
+[ext_resource type="Script" path="res://lose_condition.gd" id="2_uu6xs"]
+[ext_resource type="PackedScene" path="res://Floor.glb" id="5_fos0i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_glv2v"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

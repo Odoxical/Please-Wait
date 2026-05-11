@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bs2onr2xbypk4"
-path="res://.godot/imported/hand2.glb-fe4b3512fae21bfb3b31ed3a8c70e305.scn"
+uid="uid://x4gwoaw0iv4p"
+path="res://.godot/imported/Floor.glb-965f6de4d97634338e0d7a8c40ef0c86.scn"
 
 [deps]
 
-source_file="res://hand2.glb"
-dest_files=["res://.godot/imported/hand2.glb-fe4b3512fae21bfb3b31ed3a8c70e305.scn"]
+source_file="res://Models/Floor.glb"
+dest_files=["res://.godot/imported/Floor.glb-965f6de4d97634338e0d7a8c40ef0c86.scn"]
 
 [params]
 
@@ -37,12 +37,6 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"nodes": {
-"PATH:Palm": {
-"generate/physics": true
-}
-}
-}
+_subresources={}
 gltf/naming_version=2
 gltf/embedded_image_handling=1

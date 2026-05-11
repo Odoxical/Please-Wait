@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dwsxwhj4mqc4a"
-path="res://.godot/imported/Dev_Hand_Neo.glb-cfd1edc864f66084ccdd0c8f46e1b7c2.scn"
+uid="uid://bu2ryfbxwqhjm"
+path="res://.godot/imported/Food.glb-8f9e7cccb5d78ca4b59f9a04aea812d3.scn"
 
 [deps]
 
-source_file="res://Dev_Hand_Neo.glb"
-dest_files=["res://.godot/imported/Dev_Hand_Neo.glb-cfd1edc864f66084ccdd0c8f46e1b7c2.scn"]
+source_file="res://Models/Food.glb"
+dest_files=["res://.godot/imported/Food.glb-8f9e7cccb5d78ca4b59f9a04aea812d3.scn"]
 
 [params]
 

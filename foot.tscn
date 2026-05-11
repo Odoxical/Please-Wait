@@ -1,6 +1,6 @@
-[gd_scene format=4 uid="uid://dxv3muv7ryvob"]
+[gd_scene format=4 uid="uid://bdd16ytq2cag2"]
 
-[ext_resource type="Script" uid="uid://c4d7negp3vmfa" path="res://foot.gd" id="1_agajq"]
+[ext_resource type="Script" path="res://foot.gd" id="1_agajq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_16vn3"]
 resource_name = "Material.003"
