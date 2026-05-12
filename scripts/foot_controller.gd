@@ -34,7 +34,7 @@ var _body_tween: Tween
 
 func _ready() -> void:
 	for ik in _ik_nodes:
-		ik.start()
+		ik.start() #
 	for foot in feet:
 		foot.body_ref = body
 		foot.foot_placed.connect(_on_foot_placed)
