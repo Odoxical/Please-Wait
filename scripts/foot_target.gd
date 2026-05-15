@@ -23,13 +23,14 @@ func move_foot(direction: Vector3) -> void:
 func step_to_position(world_pos: Vector3) -> void:
 	if is_moving:
 		return
-	_step_to(world_pos) #Why is this world_pos and not target_pos? and what is world_pos anyway?
+	_step_to(world_pos) #Why is this world_pos and not target_pos? 
 
 
 func _step_to(destination) -> void:
 	is_moving = true
 	var start = global_position #Gets the position the step starts at.
-	var peak = (start + destination) / 2.0 #+ Vector3.UP * config.lift_height #The previous is code made from the ai misunderstanding us, and thinking that I wanted it to take a step every few seconds.
+	var peak = (start + destination) / 2.0 #+ Vector3.UP * config.lift_height #The previous is code made from the ai misunderstanding us,
+	# and thinking that I wanted it to take a step every few seconds.
 	#Yould think that changing (start+destination)/2.0 to (start+destination)/3.0 would decrease the amount it moves. It doesn't.
 
 	if _tween: #attempting to read this block is like trying to read the carvings of a clay tablet while underwater.

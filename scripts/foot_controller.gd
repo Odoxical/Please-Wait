@@ -34,32 +34,32 @@ var _body_tween: Tween
 
 func _ready() -> void:
 	for ik in _ik_nodes:
-		ik.start() #
+		ik.start() #Start IK. doen't do anything, since the bones have nothing to IK to, I'm pretty sure..
 	for foot in feet:
-		foot.body_ref = body
+		foot.body_ref = body #?
 		foot.foot_placed.connect(_on_foot_placed)
-	_update_selection()
+	_update_selection() #Start with a foot selected
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	for i in ACTION_SELECT.size():
-		if event.is_action_pressed(ACTION_SELECT[i]):
-			active_foot_index = i
-			_update_selection()
-			foot_selected.emit(i)
+	for i in ACTION_SELECT.size(): #Select between foot
+		if event.is_action_pressed(ACTION_SELECT[i]): #If a foot has been selected
+			active_foot_index = i #Active foot
+			_update_selection() #Update what foot is selected
+			foot_selected.emit(i) #Show that it knows what foot is selected?
 			return
 
 	if event.is_action_pressed("ui_focus_next"):
-		active_foot_index = (active_foot_index + 1) % feet.size()
+		active_foot_index = (active_foot_index + 1) % feet.size() #Changes foot to next foot
 		_update_selection()
 	elif event.is_action_pressed("ui_focus_prev"):
-		active_foot_index = (active_foot_index - 1 + feet.size()) % feet.size()
+		active_foot_index = (active_foot_index - 1 + feet.size()) % feet.size()#Changes foot to last foot
 		_update_selection()
 
 
 func _process(delta: float) -> void:
-	var foot: FootTarget = feet[active_foot_index]
-	if foot.is_moving:
+	var foot: FootTarget = feet[active_foot_index] #?
+	if foot.is_moving: #???
 		return
 
 	var dir := Vector3.ZERO
