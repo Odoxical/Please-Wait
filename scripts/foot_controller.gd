@@ -34,41 +34,44 @@ var _body_tween: Tween
 
 func _ready() -> void:
 	for ik in _ik_nodes:
-		ik.start() #Start IK. doen't do anything, since the bones have nothing to IK to, I'm pretty sure..
+		ik.start()
 	for foot in feet:
-		foot.body_ref = body #?
+		foot.body_ref = body
 		foot.foot_placed.connect(_on_foot_placed)
-	_update_selection() #Start with a foot selected
+	_update_selection()
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	for i in ACTION_SELECT.size(): #Select between foot
-		if event.is_action_pressed(ACTION_SELECT[i]): #If a foot has been selected
-			active_foot_index = i #Active foot
-			_update_selection() #Update what foot is selected
-			foot_selected.emit(i) #Show that it knows what foot is selected?
+	for i in ACTION_SELECT.size():
+		if event.is_action_pressed(ACTION_SELECT[i]):
+			active_foot_index = i
+			_update_selection()
+			foot_selected.emit(i)
 			return
 
 	if event.is_action_pressed("ui_focus_next"):
-		active_foot_index = (active_foot_index + 1) % feet.size() #Changes foot to next foot
+		active_foot_index = (active_foot_index + 1) % feet.size()
 		_update_selection()
 	elif event.is_action_pressed("ui_focus_prev"):
-		active_foot_index = (active_foot_index - 1 + feet.size()) % feet.size()#Changes foot to last foot
+		active_foot_index = (active_foot_index - 1 + feet.size()) % feet.size()
 		_update_selection()
+
+	if event.is_action_pressed(ACTION_MOVE_UP):
+		feet[active_foot_index].lift()
+	elif event.is_action_pressed(ACTION_MOVE_DOWN):
+		feet[active_foot_index].place()
 
 
 func _process(delta: float) -> void:
-	var foot: FootTarget = feet[active_foot_index] #?
-	if foot.is_moving: #???
+	var foot: FootTarget = feet[active_foot_index]
+	if foot.state != FootTarget.FootState.LIFTED:
 		return
 
 	var dir := Vector3.ZERO
-	if Input.is_action_pressed(ACTION_MOVE_FORWARD): dir.z -= 2.0
-	if Input.is_action_pressed(ACTION_MOVE_BACK):    dir.z += 2.0
-	if Input.is_action_pressed(ACTION_MOVE_LEFT):    dir.x -= 2.0
-	if Input.is_action_pressed(ACTION_MOVE_RIGHT):   dir.x += 2.0
-	if Input.is_action_pressed(ACTION_MOVE_UP):      dir.y += 2.0
-	if Input.is_action_pressed(ACTION_MOVE_DOWN):    dir.y -= 2.0
+	if Input.is_action_pressed(ACTION_MOVE_FORWARD): dir.z -= 1.0
+	if Input.is_action_pressed(ACTION_MOVE_BACK):    dir.z += 1.0
+	if Input.is_action_pressed(ACTION_MOVE_LEFT):    dir.x -= 1.0
+	if Input.is_action_pressed(ACTION_MOVE_RIGHT):   dir.x += 1.0
 
 	if dir == Vector3.ZERO:
 		return
@@ -76,12 +79,9 @@ func _process(delta: float) -> void:
 	dir = dir.normalized()
 	var raw_pos := foot.global_position + dir * config.move_speed * delta
 	var rest := foot.get_rest_world_pos()
-	var target_pos := rest + (raw_pos - rest).limit_length(config.max_reach)
+	var clamped := rest + (raw_pos - rest).limit_length(config.max_reach)
 
-	if target_pos.distance_squared_to(foot.global_position) < 0.0001:
-		return
-
-	foot.step_to_position(target_pos)
+	foot.global_position = Vector3(clamped.x, foot.global_position.y, clamped.z)
 	foot_moved.emit(active_foot_index, dir)
 
 
@@ -103,4 +103,4 @@ func _on_foot_placed(_foot: FootTarget) -> void:
 	if _body_tween:
 		_body_tween.kill()
 	_body_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	_body_tween.tween_property(body, "global_position", target, config.step_duration)
+	_body_tween.tween_property(body, "global_position", target, config.archaic_variable)

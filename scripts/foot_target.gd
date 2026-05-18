@@ -3,51 +3,46 @@ extends Marker3D
 
 signal foot_placed(foot: FootTarget)
 
+enum FootState { GROUNDED, LIFTING, LIFTED, PLACING }
+
 @export var config: FootConfig
-@export var rest_offset: Vector3 #Where the foot starts at. Changeable in inspector.
-@export var foot_id: int #Tells what foot it is. Changeable in inspector.
-var is_selected = false
-var is_moving = false
-var body_ref: Node3D #Gets the body. I have no idea why this is used and not something resolved around hierarchy.
+@export var rest_offset: Vector3
+@export var foot_id: int
+
+var state: FootState = FootState.GROUNDED
+var is_selected: bool = false
+var body_ref: Node3D
 
 var _tween: Tween
 
 
-func move_foot(direction: Vector3) -> void:
-	if is_moving:
+func lift() -> void:
+	if state != FootState.GROUNDED:
 		return
-	var target_pos: Vector3 = global_position + direction * config.move_speed * get_process_delta_time()
-	_step_to(target_pos)
+	state = FootState.LIFTING
+	var lifted_y := global_position.y + config.lift_height
+
+	if _tween:
+		_tween.kill()
+	_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	_tween.tween_property(self, "global_position:y", lifted_y, config.archaic_variable / 2.0)
+	_tween.tween_callback(func(): state = FootState.LIFTED)
 
 
-func step_to_position(world_pos: Vector3) -> void:
-	if is_moving:
+func place() -> void:
+	if state != FootState.LIFTED:
 		return
-	_step_to(world_pos) #Why is this world_pos and not target_pos? 
+	state = FootState.PLACING
+
+	if _tween:
+		_tween.kill()
+	_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	_tween.tween_property(self, "global_position:y", 0.0, config.archaic_variable / 2.0)
+	_tween.tween_callback(_on_placed)
 
 
-func _step_to(destination) -> void:
-	is_moving = true
-	var start = global_position #Gets the position the step starts at.
-	var peak = (start + destination) / 2.0 #+ Vector3.UP * config.lift_height #The previous is code made from the ai misunderstanding us,
-	# and thinking that I wanted it to take a step every few seconds.
-	#Yould think that changing (start+destination)/2.0 to (start+destination)/3.0 would decrease the amount it moves. It doesn't.
-
-	if _tween: #attempting to read this block is like trying to read the carvings of a clay tablet while underwater.
-		_tween.kill() #If block is triggered while tween is still happening, stop the tween.
-	_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT) # Problem point 1
-
-	_tween.tween_method(_set_pos_arc.bind(start, peak), 0.0, 1.0, config.step_duration / 2.0) #Possible Problem point 2
-	_tween.tween_method(_set_pos_arc.bind(peak, destination), 0.0, 1.0, config.step_duration / 2.0) #Possible Problem point 3
-	_tween.tween_callback(_on_step_complete)
-
-
-func _set_pos_arc(t: float, from: Vector3, to: Vector3) -> void: #I have no idea what this does
-	global_position = from.lerp(to, t)
-
-
-func _on_step_complete() -> void:
-	is_moving = false
+func _on_placed() -> void:
+	state = FootState.GROUNDED
 	foot_placed.emit(self)
 
 

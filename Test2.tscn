@@ -1,0 +1,260 @@
+[gd_scene format=3 uid="uid://cexxcmi7q03s6"]
+
+[ext_resource type="PackedScene" uid="uid://bof05yv81ttwj" path="res://Models/Body.glb" id="1_f4j51"]
+[ext_resource type="PackedScene" path="res://scenes/foot_target.tscn" id="2_nhswp"]
+[ext_resource type="PackedScene" uid="uid://cggdcokop0eif" path="res://Models/Foot.glb" id="3_i3nkf"]
+[ext_resource type="Script" uid="uid://bcsmfwe8jf8e4" path="res://scripts/foot_controller.gd" id="4_6soe1"]
+[ext_resource type="Resource" uid="uid://bbkdx3c4vg358" path="res://resources/foot_config.tres" id="5_7h64q"]
+[ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="6_nhswp"]
+[ext_resource type="PackedScene" uid="uid://byxe68xmad5i" path="res://scenes/Hand.tscn" id="7_i3nkf"]
+[ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="8_6soe1"]
+
+[sub_resource type="StandardMaterial3D" id="Material_hip"]
+albedo_color = Color(1, 0.45, 0.1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_joint"]
+radius = 0.04
+height = 0.08
+
+[sub_resource type="StandardMaterial3D" id="Material_knee"]
+albedo_color = Color(0.2, 0.65, 1, 1)
+
+[node name="Node3D" type="Node3D" unique_id=1018644971]
+
+[node name="Quadruped" type="Node3D" parent="." unique_id=456197607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Body" type="Node3D" parent="Quadruped" unique_id=1658131980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Body" parent="Quadruped/Body" unique_id=1250707232 instance=ExtResource("1_f4j51")]
+transform = Transform3D(0.14142136, 0, -0.14142136, 0, 0.2, 0, 0.14142136, 0, 0.14142136, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Quadruped/Body" unique_id=669476010]
+transform = Transform3D(1, 0, 0, 0, 0.81063503, 0.58555186, 0, -0.58555186, 0.81063503, 0, 1.5, 3)
+
+[node name="Skeleton3D" type="Skeleton3D" parent="Quadruped/Body" unique_id=451986056]
+bones/0/name = "hip_fl"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.7)
+bones/0/enabled = true
+bones/0/position = Vector3(-0.5, 0, -0.7)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "knee_fl"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.25, 0)
+bones/1/enabled = true
+bones/1/position = Vector3(-0.1, -0.25, 0)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "foot_fl"
+bones/2/parent = 1
+bones/2/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+bones/2/enabled = true
+bones/2/position = Vector3(0, -0.25, 0)
+bones/2/rotation = Quaternion(0, 0, 0, 1)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/name = "hip_fr"
+bones/3/parent = -1
+bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.7)
+bones/3/enabled = true
+bones/3/position = Vector3(0.5, 0, -0.7)
+bones/3/rotation = Quaternion(0, 0, 0, 1)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/name = "knee_fr"
+bones/4/parent = 3
+bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.25, 0)
+bones/4/enabled = true
+bones/4/position = Vector3(0.1, -0.25, 0)
+bones/4/rotation = Quaternion(0, 0, 0, 1)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/name = "foot_fr"
+bones/5/parent = 4
+bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+bones/5/enabled = true
+bones/5/position = Vector3(0, -0.25, 0)
+bones/5/rotation = Quaternion(0, 0, 0, 1)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/name = "hip_rl"
+bones/6/parent = -1
+bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.7)
+bones/6/enabled = true
+bones/6/position = Vector3(-0.5, 0, 0.7)
+bones/6/rotation = Quaternion(0, 0, 0, 1)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/name = "knee_rl"
+bones/7/parent = 6
+bones/7/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.25, 0)
+bones/7/enabled = true
+bones/7/position = Vector3(-0.1, -0.25, 0)
+bones/7/rotation = Quaternion(0, 0, 0, 1)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/name = "foot_rl"
+bones/8/parent = 7
+bones/8/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+bones/8/enabled = true
+bones/8/position = Vector3(0, -0.25, 0)
+bones/8/rotation = Quaternion(0, 0, 0, 1)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/name = "hip_rr"
+bones/9/parent = -1
+bones/9/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.7)
+bones/9/enabled = true
+bones/9/position = Vector3(0.5, 0, 0.7)
+bones/9/rotation = Quaternion(0, 0, 0, 1)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/name = "knee_rr"
+bones/10/parent = 9
+bones/10/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.25, 0)
+bones/10/enabled = true
+bones/10/position = Vector3(0.1, -0.25, 0)
+bones/10/rotation = Quaternion(0, 0, 0, 1)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/name = "foot_rr"
+bones/11/parent = 10
+bones/11/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+bones/11/enabled = true
+bones/11/position = Vector3(0, -0.25, 0)
+bones/11/rotation = Quaternion(0, 0, 0, 1)
+bones/11/scale = Vector3(1, 1, 1)
+
+[node name="leg_fl" type="SkeletonIK3D" parent="Quadruped/Body/Skeleton3D" unique_id=324683993]
+root_bone = &"hip_fl"
+tip_bone = &"foot_fl"
+target_node = NodePath("../../../FootTargets/FootTarget_FL")
+
+[node name="leg_fr" type="SkeletonIK3D" parent="Quadruped/Body/Skeleton3D" unique_id=1628310135]
+root_bone = &"hip_fr"
+tip_bone = &"foot_fr"
+target_node = NodePath("../../../FootTargets/FootTarget_FR")
+
+[node name="leg_rl" type="SkeletonIK3D" parent="Quadruped/Body/Skeleton3D" unique_id=1556426179]
+root_bone = &"hip_rl"
+tip_bone = &"foot_rl"
+target_node = NodePath("../../../FootTargets/FootTarget_RL")
+
+[node name="leg_rr" type="SkeletonIK3D" parent="Quadruped/Body/Skeleton3D" unique_id=1676802541]
+root_bone = &"hip_rr"
+tip_bone = &"foot_rr"
+target_node = NodePath("../../../FootTargets/FootTarget_RR")
+
+[node name="Joint_hip_fl" type="BoneAttachment3D" parent="Quadruped/Body/Skeleton3D" unique_id=353337721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.7)
+bone_name = "hip_fl"
+bone_idx = 0
+
+[node name="Sphere" type="MeshInstance3D" parent="Quadruped/Body/Skeleton3D/Joint_hip_fl" unique_id=36737269]
+material_override = SubResource("Material_hip")
+mesh = SubResource("SphereMesh_joint")
+
+[node name="Joint_knee_fl" type="BoneAttachment3D" parent="Quadruped/Body/Skeleton3D" unique_id=934590319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.25, -0.7)
+bone_name = "knee_fl"
+bone_idx = 1
+
+[node name="Sphere" type="MeshInstance3D" parent="Quadruped/Body/Skeleton3D/Joint_knee_fl" unique_id=1287362417]
+material_override = SubResource("Material_knee")
+mesh = SubResource("SphereMesh_joint")
+
+[node name="Joint_hip_fr" type="BoneAttachment3D" parent="Quadruped/Body/Skeleton3D" unique_id=2085054550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.7)
+bone_name = "hip_fr"
+bone_idx = 3
+
+[node name="Sphere" type="MeshInstance3D" parent="Quadruped/Body/Skeleton3D/Joint_hip_fr" unique_id=1903239770]
+material_override = SubResource("Material_hip")
+mesh = SubResource("SphereMesh_joint")
+
+[node name="Joint_knee_fr" type="BoneAttachment3D" parent="Quadruped/Body/Skeleton3D" unique_id=1945788211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.25, -0.7)
+bone_name = "knee_fr"
+bone_idx = 4
+
+[node name="Sphere" type="MeshInstance3D" parent="Quadruped/Body/Skeleton3D/Joint_knee_fr" unique_id=529751149]
+material_override = SubResource("Material_knee")
+mesh = SubResource("SphereMesh_joint")
+
+[node name="Joint_hip_rl" type="BoneAttachment3D" parent="Quadruped/Body/Skeleton3D" unique_id=2131192978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.7)
+bone_name = "hip_rl"
+bone_idx = 6
+
+[node name="Sphere" type="MeshInstance3D" parent="Quadruped/Body/Skeleton3D/Joint_hip_rl" unique_id=1930747940]
+material_override = SubResource("Material_hip")
+mesh = SubResource("SphereMesh_joint")
+
+[node name="Joint_knee_rl" type="BoneAttachment3D" parent="Quadruped/Body/Skeleton3D" unique_id=1256553942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.25, 0.7)
+bone_name = "knee_rl"
+bone_idx = 7
+
+[node name="Sphere" type="MeshInstance3D" parent="Quadruped/Body/Skeleton3D/Joint_knee_rl" unique_id=1366463943]
+material_override = SubResource("Material_knee")
+mesh = SubResource("SphereMesh_joint")
+
+[node name="Joint_hip_rr" type="BoneAttachment3D" parent="Quadruped/Body/Skeleton3D" unique_id=1137177906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.7)
+bone_name = "hip_rr"
+bone_idx = 9
+
+[node name="Sphere" type="MeshInstance3D" parent="Quadruped/Body/Skeleton3D/Joint_hip_rr" unique_id=1707303644]
+material_override = SubResource("Material_hip")
+mesh = SubResource("SphereMesh_joint")
+
+[node name="Joint_knee_rr" type="BoneAttachment3D" parent="Quadruped/Body/Skeleton3D" unique_id=1356596030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.25, 0.7)
+bone_name = "knee_rr"
+bone_idx = 10
+
+[node name="Sphere" type="MeshInstance3D" parent="Quadruped/Body/Skeleton3D/Joint_knee_rr" unique_id=1735778930]
+material_override = SubResource("Material_knee")
+mesh = SubResource("SphereMesh_joint")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Quadruped/Body" unique_id=1232022978]
+
+[node name="FootTargets" type="Node3D" parent="Quadruped" unique_id=2017630132]
+
+[node name="FootTarget_FL" parent="Quadruped/FootTargets" unique_id=483487257 instance=ExtResource("2_nhswp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, -0.7)
+rest_offset = Vector3(-0.6, 0, -0.7)
+
+[node name="Foot" parent="Quadruped/FootTargets/FootTarget_FL" unique_id=1241781398 instance=ExtResource("3_i3nkf")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+
+[node name="FootTarget_FR" parent="Quadruped/FootTargets" unique_id=1206809269 instance=ExtResource("2_nhswp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, -0.7)
+rest_offset = Vector3(0.6, 0, -0.7)
+foot_id = 1
+
+[node name="Foot" parent="Quadruped/FootTargets/FootTarget_FR" unique_id=1342796431 instance=ExtResource("3_i3nkf")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+
+[node name="FootTarget_RL" parent="Quadruped/FootTargets" unique_id=997426725 instance=ExtResource("2_nhswp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, 0.7)
+rest_offset = Vector3(-0.6, 0, 0.7)
+foot_id = 2
+
+[node name="Foot" parent="Quadruped/FootTargets/FootTarget_RL" unique_id=1699190694 instance=ExtResource("3_i3nkf")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+
+[node name="FootTarget_RR" parent="Quadruped/FootTargets" unique_id=572356330 instance=ExtResource("2_nhswp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.7)
+rest_offset = Vector3(0.6, 0, 0.7)
+foot_id = 3
+
+[node name="Foot" parent="Quadruped/FootTargets/FootTarget_RR" unique_id=654653983 instance=ExtResource("3_i3nkf")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+
+[node name="FootController" type="Node" parent="Quadruped" unique_id=372298903]
+script = ExtResource("4_6soe1")
+config = ExtResource("5_7h64q")
+
+[node name="Floor" parent="." unique_id=969005094 instance=ExtResource("6_nhswp")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -5.875, -1.112, 4.211)
+
+[node name="Hand" parent="." unique_id=120564580 instance=ExtResource("7_i3nkf")]
+transform = Transform3D(-4.371139e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.371139e-09, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=993865804]
+environment = ExtResource("8_6soe1")
