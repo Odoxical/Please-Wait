@@ -6,6 +6,7 @@ var ground_plane = Plane(Vector3.UP,height)
 var speed_factor : float
 var hand_target_y
 var arm_length=1
+@export var config: HandConfig
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -32,14 +33,14 @@ func _unhandled_input(event):
 			pass
 	if Input.is_action_pressed("Scroll_Up"):
 		if panic_mode==false:
-			velocity.y += 250*speed_factor
+			velocity.y += config.normal_speed*speed_factor
 		else:
-			velocity.y += 500*speed_factor
+			velocity.y += config.panic_speed*speed_factor
 	if Input.is_action_pressed("Scroll_Down"):
 		if panic_mode==false:
-			velocity.y -= 250*speed_factor
+			velocity.y -= config.normal_speed*speed_factor
 		else:
-			velocity.y -= 500*speed_factor
+			velocity.y -= config.panic_speed*speed_factor
 	if Input.is_action_pressed("escape_mouse_capture"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if Input.is_action_just_pressed("panic"):
@@ -50,9 +51,9 @@ func _unhandled_input(event):
 
 func _process(delta):
 	if panic_mode == true:
-		arm_length=12
+		arm_length=config.panic_arm_length
 	else:
-		arm_length=10
+		arm_length=config.normal_arm_length
 	
 	if panic_mode==false:
 		speed_factor = delta
@@ -60,6 +61,6 @@ func _process(delta):
 		speed_factor = delta*2
 	position.y += velocity.y*speed_factor
 	if panic_mode == false:
-		velocity.y*=0.95
+		velocity.y*=config.normal_smoothing
 	else:
-		velocity.y*=0.5
+		velocity.y*=config.panic_smoothing

@@ -14,13 +14,15 @@ var is_selected: bool = false
 var body_ref: Node3D
 
 var _tween: Tween
+var _ground_y: float = 0.0
 
 
 func lift() -> void:
 	if state != FootState.GROUNDED:
 		return
 	state = FootState.LIFTING
-	var lifted_y := global_position.y + config.lift_height
+	_ground_y = global_position.y
+	var lifted_y := _ground_y + config.lift_height
 
 	if _tween:
 		_tween.kill()
@@ -37,7 +39,7 @@ func place() -> void:
 	if _tween:
 		_tween.kill()
 	_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-	_tween.tween_property(self, "global_position:y", 0.0, config.archaic_variable / 2.0)
+	_tween.tween_property(self, "global_position:y", _ground_y, config.archaic_variable / 2.0)
 	_tween.tween_callback(_on_placed)
 
 
