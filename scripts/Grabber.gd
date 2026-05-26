@@ -1,12 +1,13 @@
 extends CharacterBody3D
 
+@export var config: HandConfig
 var panic_mode = false
 var height = 0
 var ground_plane = Plane(Vector3.UP,height)
 var speed_factor : float
 var hand_target_y
-var arm_length=1
-@export var config: HandConfig
+var arm_length=config.normal_arm_length
+
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

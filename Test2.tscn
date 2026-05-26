@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="6_nhswp"]
 [ext_resource type="PackedScene" uid="uid://byxe68xmad5i" path="res://scenes/Hand.tscn" id="7_i3nkf"]
 [ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="8_6soe1"]
+[ext_resource type="PackedScene" uid="uid://b0maeasvi2wsc" path="res://scenes/Foods.tscn" id="10_f1fu2"]
 
 [sub_resource type="StandardMaterial3D" id="Material_hip"]
 albedo_color = Color(1, 0.45, 0.1, 1)
@@ -22,8 +23,8 @@ albedo_color = Color(0.2, 0.65, 1, 1)
 
 [sub_resource type="Resource" id="Resource_f1fu2"]
 script = ExtResource("3_7h64q")
-normal_speed = 100
-panic_speed = 150
+normal_speed = 50
+panic_speed = 100
 normal_arm_length = 2
 panic_arm_length = 3
 metadata/_custom_type_script = "uid://y4ghqgbupjpl"
@@ -272,3 +273,6 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -5.875, -1.112, 4.211)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=993865804]
 environment = ExtResource("8_6soe1")
+
+[node name="Foods" parent="." unique_id=938991637 instance=ExtResource("10_f1fu2")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.102532744, 0.09822338, -0.11097121)
