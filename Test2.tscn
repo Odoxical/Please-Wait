@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://bof05yv81ttwj" path="res://Models/Body.glb" id="1_f4j51"]
 [ext_resource type="PackedScene" path="res://scenes/foot_target.tscn" id="2_nhswp"]
-[ext_resource type="Script" uid="uid://y4ghqgbupjpl" path="res://HandConfig.gd" id="3_7h64q"]
 [ext_resource type="PackedScene" uid="uid://cggdcokop0eif" path="res://Models/Foot.glb" id="3_i3nkf"]
 [ext_resource type="Script" uid="uid://bcsmfwe8jf8e4" path="res://scripts/foot_controller.gd" id="4_6soe1"]
 [ext_resource type="Resource" uid="uid://bbkdx3c4vg358" path="res://resources/foot_config.tres" id="5_7h64q"]
@@ -20,14 +19,6 @@ height = 0.08
 
 [sub_resource type="StandardMaterial3D" id="Material_knee"]
 albedo_color = Color(0.2, 0.65, 1, 1)
-
-[sub_resource type="Resource" id="Resource_f1fu2"]
-script = ExtResource("3_7h64q")
-normal_speed = 50
-panic_speed = 100
-normal_arm_length = 2
-panic_arm_length = 3
-metadata/_custom_type_script = "uid://y4ghqgbupjpl"
 
 [node name="Node3D" type="Node3D" unique_id=1018644971]
 
@@ -228,8 +219,11 @@ mesh = SubResource("SphereMesh_joint")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Quadruped/Body" unique_id=1232022978]
 
 [node name="Hand" parent="Quadruped/Body" unique_id=120564580 instance=ExtResource("7_i3nkf")]
-transform = Transform3D(-4.371139e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.371139e-09, 0, 0.5, 0)
-config = SubResource("Resource_f1fu2")
+transform = Transform3D(-4.371139e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.371139e-09, 0, 0.5, 0.06893873)
+normal_speed = 200
+panic_speed = 400
+normal_arm_length = 1.6
+panic_arm_length = 2.4
 
 [node name="FootTargets" type="Node3D" parent="Quadruped" unique_id=2017630132]
 
