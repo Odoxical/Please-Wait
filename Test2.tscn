@@ -20,6 +20,12 @@ height = 0.08
 [sub_resource type="StandardMaterial3D" id="Material_knee"]
 albedo_color = Color(0.2, 0.65, 1, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_7h64q"]
+size = Vector3(200.0456, 1, 190.62195)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f1fu2"]
+size = Vector3(57.38025, 7, 2)
+
 [node name="Node3D" type="Node3D" unique_id=1018644971]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=52246290]
@@ -265,8 +271,20 @@ config = ExtResource("5_7h64q")
 [node name="Floor" parent="." unique_id=969005094 instance=ExtResource("6_nhswp")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -5.875, -1.112, 4.211)
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=1676797442]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=618858364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.017426, 0.07256603, -80.26166)
+shape = SubResource("BoxShape3D_7h64q")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Floor" unique_id=1352022486]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D2" unique_id=1430926957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.190125, 3, -59.500004)
+shape = SubResource("BoxShape3D_f1fu2")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=993865804]
 environment = ExtResource("8_6soe1")
 
 [node name="Foods" parent="." unique_id=938991637 instance=ExtResource("10_f1fu2")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.102532744, 0.09822338, -0.11097121)
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.102532744, 0.26474398, 0.33462578)

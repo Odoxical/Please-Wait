@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dpjqn644l77r1"]
+
+[ext_resource type="Texture2D" uid="uid://bj0xq3ur3357q" path="res://icon.svg" id="1_2skwu"]
+[ext_resource type="Script" uid="uid://cqh0u51ywcua7" path="res://draggable.gd" id="2_wq2sw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wq2sw"]
+size = Vector2(130, 133)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7uqfo"]
+size = Vector2(506, 224)
+
+[node name="Node2D" type="Node2D" unique_id=308840164]
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="." unique_id=1200040812]
+node_a = NodePath("Body A")
+node_b = NodePath("Button/Body B")
+bias = 0.9
+length = 250.0
+rest_length = 328.0
+stiffness = 1.0
+
+[node name="Body A" type="RigidBody2D" parent="DampedSpringJoint2D" unique_id=2024655645]
+gravity_scale = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DampedSpringJoint2D/Body A" unique_id=2018104468]
+shape = SubResource("RectangleShape2D_wq2sw")
+
+[node name="Icon" type="Sprite2D" parent="DampedSpringJoint2D/Body A/CollisionShape2D" unique_id=2005249625]
+texture = ExtResource("1_2skwu")
+
+[node name="Button" type="Button" parent="DampedSpringJoint2D" unique_id=1792551355]
+offset_left = -64.0
+offset_top = 186.0
+offset_right = 64.0
+offset_bottom = 314.0
+icon = ExtResource("1_2skwu")
+script = ExtResource("2_wq2sw")
+metadata/_edit_use_anchors_ = true
+
+[node name="Body B" type="RigidBody2D" parent="DampedSpringJoint2D/Button" unique_id=1207874894]
+position = Vector2(64, 64)
+collision_layer = 2
+collision_mask = 2
+mass = 10.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DampedSpringJoint2D/Button/Body B" unique_id=2096801238]
+shape = SubResource("RectangleShape2D_wq2sw")
+
+[node name="Icon" type="Sprite2D" parent="DampedSpringJoint2D/Button/Body B" unique_id=2124082201]
+texture = ExtResource("1_2skwu")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2096401232]
+offset = Vector2(0, 250)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=98894408]
+position = Vector2(-9, 452)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=877932934]
+position = Vector2(9, -202)
+shape = SubResource("RectangleShape2D_7uqfo")
+debug_color = Color(0.54832876, 0.5648359, 0, 0.41960785)
+
+[node name="Unconnected Body C" type="RigidBody2D" parent="." unique_id=1651076064]
+gravity_scale = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Unconnected Body C" unique_id=1203821959]
+shape = SubResource("RectangleShape2D_wq2sw")
+
+[node name="Icon" type="Sprite2D" parent="Unconnected Body C/CollisionShape2D" unique_id=1744095222]
+texture = ExtResource("1_2skwu")
+
+[connection signal="button_down" from="DampedSpringJoint2D/Button" to="DampedSpringJoint2D/Button" method="_on_button_down"]
+[connection signal="button_up" from="DampedSpringJoint2D/Button" to="DampedSpringJoint2D/Button" method="_on_button_up"]
