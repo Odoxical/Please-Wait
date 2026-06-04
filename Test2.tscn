@@ -278,10 +278,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.017426, 0.07256603, -80.26
 shape = SubResource("BoxShape3D_7h64q")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Floor" unique_id=1352022486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -70)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D2" unique_id=1430926957]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.190125, 3, -59.500004)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.809874, 3, 10.499996)
 shape = SubResource("BoxShape3D_f1fu2")
+debug_color = Color(0.99999994, 0.119104885, 0.63879126, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=993865804]
 environment = ExtResource("8_6soe1")
