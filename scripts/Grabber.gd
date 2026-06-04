@@ -13,37 +13,46 @@ var height = 0
 var ground_plane = Plane(Vector3.UP, height)
 var speed_factor: float
 var arm_length = normal_arm_length
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		var flat_pos = Vector2(position.x, position.z)
-		var dist = flat_pos.length()
-		var reach = clamp(dist / arm_length, 0.0, 1.0)
+		var flat_dist = flat_pos.length()
+		var dist3d = position.length()
+		var reach = clamp(dist3d / arm_length, 0.0, 1.0)
+		var inner_reach = clamp(min_arm_length / dist3d, 0.0, 1.0) if dist3d > 0.001 else 1.0
 		var raw_move = Vector2(event.relative.x, event.relative.y) * mouse_sensitivity
-		if dist > 0.001:
+		if flat_dist > 0.001:
 			var radial_dir = flat_pos.normalized()
 			var tangent_dir = Vector2(-radial_dir.y, radial_dir.x)
 			var radial_amount = raw_move.dot(radial_dir)
 			var tangent_amount = raw_move.dot(tangent_dir)
 			if radial_amount > 0.0:
 				radial_amount *= 1.0 - reach * reach
+			if radial_amount < 0.0:
+				radial_amount *= 1.0 - inner_reach * inner_reach
 			var move = radial_dir * radial_amount + tangent_dir * tangent_amount
-			var new_pos = flat_pos + move
-			if new_pos.length() > arm_length:
-				new_pos = new_pos.normalized() * arm_length
-			if new_pos.length() > 0.001 and new_pos.length() < min_arm_length:
-				new_pos = new_pos.normalized() * min_arm_length
-			position.x = new_pos.x
-			position.z = new_pos.y
+			var new_flat = flat_pos + move
+			position.x = new_flat.x
+			position.z = new_flat.y
 		else:
-			var new_pos = flat_pos + raw_move
-			if new_pos.length() > arm_length:
-				new_pos = new_pos.normalized() * arm_length
-			if new_pos.length() > 0.001 and new_pos.length() < min_arm_length:
-				new_pos = new_pos.normalized() * min_arm_length
-			position.x = new_pos.x
-			position.z = new_pos.y
+			var new_flat = flat_pos + raw_move
+			var proposed_len = Vector3(new_flat.x, position.y, new_flat.y).length()
+			if proposed_len < min_arm_length:
+				var xz_min = sqrt(max(0.0, min_arm_length * min_arm_length - position.y * position.y))
+				if new_flat.length() > 0.001:
+					new_flat = new_flat.normalized() * xz_min
+				else:
+					new_flat = flat_pos
+			position.x = new_flat.x
+			position.z = new_flat.y
+		if position.length() > arm_length:
+			position = position.normalized() * arm_length
+		if position.length() > 0.001 and position.length() < min_arm_length:
+			position = position.normalized() * min_arm_length
 	if Input.is_action_pressed("Scroll_Up"):
 		velocity.y += (panic_speed if panic_mode else normal_speed) * speed_factor/5
 	if Input.is_action_pressed("Scroll_Down"):
@@ -52,12 +61,23 @@ func _unhandled_input(event):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if Input.is_action_just_pressed("panic"):
 		panic_mode = !panic_mode
+
 func _process(delta):
 	arm_length = panic_arm_length if panic_mode else normal_arm_length
 	speed_factor = delta * (2.0 if panic_mode else 1.0)
 	position.y += velocity.y * speed_factor
 	velocity.y *= panic_smoothing if panic_mode else normal_smoothing
+	if position.length() > arm_length:
+		position = position.normalized() * arm_length
+	var xz_min = sqrt(max(0.0, min_arm_length * min_arm_length - position.y * position.y))
 	var flat_pos = Vector2(position.x, position.z)
+	if flat_pos.length() > 0.001 and flat_pos.length() < xz_min:
+		flat_pos = flat_pos.normalized() * xz_min
+		position.x = flat_pos.x
+		position.z = flat_pos.y
+	elif position.length() > 0.001 and position.length() < min_arm_length:
+		position = position.normalized() * min_arm_length
+		flat_pos = Vector2(position.x, position.z)
 	if flat_pos.length() > 0.05:
-		var angle = atan2(flat_pos.x, flat_pos.y) 
-		rotation.y = angle+1.5
+		var angle = atan2(flat_pos.x, flat_pos.y)
+		rotation.y = angle + 1.5
