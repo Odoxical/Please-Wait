@@ -8,7 +8,7 @@ extends CharacterBody3D
 @export var panic_smoothing = 0.5
 @export var mouse_sensitivity: float = 0.0015
 @export var min_arm_length: float = 0.16
-var panic_mode = false
+var panic_mode = Globals.panic_mode
 var height = 0
 var ground_plane = Plane(Vector3.UP, height)
 var speed_factor: float
@@ -23,7 +23,7 @@ func _unhandled_input(event):
 		var flat_dist = flat_pos.length()
 		var dist3d = position.length()
 		var reach = clamp(dist3d / arm_length, 0.0, 1.0)
-		var inner_reach = clamp(min_arm_length / dist3d, 0.0, 1.0) if dist3d > 0.001 else 1.0
+		var inner_reach = clamp(min_arm_length / flat_dist, 0.0, 1.0) if flat_dist > 0.001 else 1.0
 		var raw_move = Vector2(event.relative.x, event.relative.y) * mouse_sensitivity
 		if flat_dist > 0.001:
 			var radial_dir = flat_pos.normalized()
@@ -40,19 +40,15 @@ func _unhandled_input(event):
 			position.z = new_flat.y
 		else:
 			var new_flat = flat_pos + raw_move
-			var proposed_len = Vector3(new_flat.x, position.y, new_flat.y).length()
-			if proposed_len < min_arm_length:
-				var xz_min = sqrt(max(0.0, min_arm_length * min_arm_length - position.y * position.y))
-				if new_flat.length() > 0.001:
-					new_flat = new_flat.normalized() * xz_min
-				else:
-					new_flat = flat_pos
 			position.x = new_flat.x
 			position.z = new_flat.y
 		if position.length() > arm_length:
 			position = position.normalized() * arm_length
-		if position.length() > 0.001 and position.length() < min_arm_length:
-			position = position.normalized() * min_arm_length
+		var flat_after = Vector2(position.x, position.z)
+		if flat_after.length() > 0.001 and flat_after.length() < min_arm_length:
+			flat_after = flat_after.normalized() * min_arm_length
+			position.x = flat_after.x
+			position.z = flat_after.y
 	if Input.is_action_pressed("Scroll_Up"):
 		velocity.y += (panic_speed if panic_mode else normal_speed) * speed_factor/5
 	if Input.is_action_pressed("Scroll_Down"):
@@ -69,15 +65,11 @@ func _process(delta):
 	velocity.y *= panic_smoothing if panic_mode else normal_smoothing
 	if position.length() > arm_length:
 		position = position.normalized() * arm_length
-	var xz_min = sqrt(max(0.0, min_arm_length * min_arm_length - position.y * position.y))
 	var flat_pos = Vector2(position.x, position.z)
-	if flat_pos.length() > 0.001 and flat_pos.length() < xz_min:
-		flat_pos = flat_pos.normalized() * xz_min
+	if flat_pos.length() > 0.001 and flat_pos.length() < min_arm_length:
+		flat_pos = flat_pos.normalized() * min_arm_length
 		position.x = flat_pos.x
 		position.z = flat_pos.y
-	elif position.length() > 0.001 and position.length() < min_arm_length:
-		position = position.normalized() * min_arm_length
-		flat_pos = Vector2(position.x, position.z)
 	if flat_pos.length() > 0.05:
 		var angle = atan2(flat_pos.x, flat_pos.y)
 		rotation.y = angle + 1.5

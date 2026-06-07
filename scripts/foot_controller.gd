@@ -4,6 +4,9 @@ extends Node
 signal foot_selected(foot_id: int)
 signal foot_moved(foot_id: int, direction: Vector3)
 
+var Speed_factor=0.00000000000001
+var panic_mode = Globals.panic_mode
+
 @export var config: FootConfig
 
 @onready var body: Node3D = $"../Body"
@@ -48,6 +51,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			_update_selection()
 			foot_selected.emit(i)
 			return
+	if event.is_action_pressed("panic"):
+		if panic_mode==true:
+			Speed_factor = 0.25
+		else:
+			Speed_factor = 0.05
 
 	if event.is_action_pressed("ui_focus_next"):
 		active_foot_index = (active_foot_index + 1) % feet.size()
@@ -70,8 +78,9 @@ func _process(delta: float) -> void:
 	var dir := Vector3.ZERO
 	if Input.is_action_pressed(ACTION_MOVE_FORWARD): dir.z -= 1.0
 	if Input.is_action_pressed(ACTION_MOVE_BACK):    dir.z += 1.0
-	if Input.is_action_pressed(ACTION_MOVE_LEFT):    dir.x -= 1.0
+	if Input.is_action_pressed(ACTION_MOVE_LEFT):    dir.x -= Speed_factor*delta
 	if Input.is_action_pressed(ACTION_MOVE_RIGHT):   dir.x += 1.0
+
 
 	if dir == Vector3.ZERO:
 		return
