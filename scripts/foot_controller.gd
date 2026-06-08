@@ -4,10 +4,11 @@ extends Node
 signal foot_selected(foot_id: int)
 signal foot_moved(foot_id: int, direction: Vector3)
 
-var Speed_factor=0.00000000000001
 var panic_mode = Globals.panic_mode
 
 @export var config: FootConfig
+
+@onready var move_speed = config.move_speed
 
 @onready var body: Node3D = $"../Body"
 @onready var _ik_nodes: Array[SkeletonIK3D] = [
@@ -53,9 +54,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 	if event.is_action_pressed("panic"):
 		if panic_mode==true:
-			Speed_factor = 0.25
+			move_speed = config.panic_move_speed
 		else:
-			Speed_factor = 0.05
+			move_speed = config.move_speed
 
 	if event.is_action_pressed("ui_focus_next"):
 		active_foot_index = (active_foot_index + 1) % feet.size()
@@ -78,7 +79,7 @@ func _process(delta: float) -> void:
 	var dir := Vector3.ZERO
 	if Input.is_action_pressed(ACTION_MOVE_FORWARD): dir.z -= 1.0
 	if Input.is_action_pressed(ACTION_MOVE_BACK):    dir.z += 1.0
-	if Input.is_action_pressed(ACTION_MOVE_LEFT):    dir.x -= Speed_factor*delta
+	if Input.is_action_pressed(ACTION_MOVE_LEFT):    dir.x -= 1.0
 	if Input.is_action_pressed(ACTION_MOVE_RIGHT):   dir.x += 1.0
 
 
@@ -86,7 +87,7 @@ func _process(delta: float) -> void:
 		return
 
 	dir = dir.normalized()
-	var raw_pos := foot.global_position + dir * config.move_speed * delta
+	var raw_pos : Vector3 = foot.global_position + dir * move_speed * delta
 	var rest := foot.get_rest_world_pos()
 	var clamped := rest + (raw_pos - rest).limit_length(config.max_reach)
 
