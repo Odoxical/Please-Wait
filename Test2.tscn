@@ -368,9 +368,8 @@ transform = Transform3D(1.4142135, 0, -1.4142135, 0, 2, 0, 1.4142135, 0, 1.41421
 transform = Transform3D(0.4000001, 0, 0, 0, 0.04200001, 0, 0, 0, 0.4000001, -0.412, -0.4, -0.218)
 mesh = SubResource("ArrayMesh_bupek")
 
-[node name="Body Convex Col8" type="RigidBody3D" parent="Quadruped/Body/RoBody" unique_id=274223046]
+[node name="Body Convex Col8" type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1294355408]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41200006, -0.40000004, -0.21800004)
-mass = 250.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1864818600]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
