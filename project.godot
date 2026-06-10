@@ -28,6 +28,10 @@ window/size/viewport_height=900
 
 import/blender/enabled=false
 
+[global_group]
+
+"Food Item"=""
+
 [input]
 
 Scroll_Up={

@@ -368,136 +368,96 @@ transform = Transform3D(1.4142135, 0, -1.4142135, 0, 2, 0, 1.4142135, 0, 1.41421
 transform = Transform3D(0.4000001, 0, 0, 0, 0.04200001, 0, 0, 0, 0.4000001, -0.412, -0.4, -0.218)
 mesh = SubResource("ArrayMesh_bupek")
 
-[node name="Body Convex Col8 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1265930009]
-transform = Transform3D(0.100000024, 0, 0, 0, 0.100000024, 0, 0, 0, 0.100000024, -0.41200006, -0.40000004, -0.21800004)
+[node name="Body Convex Col8" type="RigidBody3D" parent="Quadruped/Body/RoBody" unique_id=274223046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41200006, -0.40000004, -0.21800004)
+mass = 250.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8 " unique_id=1864818600]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1864818600]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_u5ehh")
 
-[node name="Body Convex Col1 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1260394547]
-transform = Transform3D(1.78814e-08, 0, -0.100000024, 0, 0.100000024, 0, 0.100000024, 0, 1.78814e-08, -0.4120001, -0.40000004, -0.21800002)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col1 " unique_id=624046106]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=624046106]
+transform = Transform3D(1.9470718e-08, 0, -0.1, 0, 0.1, 0, 0.1, 0, 1.9470718e-08, 4.7683716e-07, 0, 4.7683716e-07)
 shape = SubResource("ConvexPolygonShape3D_hhgra")
 
-[node name="Body Convex Col2" type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1864327180]
-transform = Transform3D(0.100000024, 0, 0, 0, 0.100000024, 0, 0, 0, 0.100000024, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col2" unique_id=760654192]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=760654192]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_e7pys")
 
-[node name="Body Convex Col3 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=946316838]
-transform = Transform3D(0.100000024, 0, 0, 0, 0.100000024, 0, 0, 0, 0.100000024, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col3 " unique_id=23036345]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=23036345]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_g5vl7")
 
-[node name="Body Convex Col4" type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1641380976]
-transform = Transform3D(0.100000024, 0, 0, 0, 0.100000024, 0, 0, 0, 0.100000024, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col4" unique_id=90232603]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=90232603]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_jqwyx")
 
-[node name="Body Convex Col5 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1572836094]
-transform = Transform3D(0.100000024, 0, 0, 0, 0.100000024, 0, 0, 0, 0.100000024, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col5 " unique_id=1308412161]
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1308412161]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_h5iuq")
 
-[node name="Body Convex Col6 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1333396518]
-transform = Transform3D(0.100000024, 0, 0, 0, 0.100000024, 0, 0, 0, 0.100000024, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col6 " unique_id=1069702266]
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1069702266]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_7jkwc")
 
-[node name="Body Convex Col7 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1680847473]
-transform = Transform3D(0, 0, 0.100000024, 0, 0.100000024, 0, -0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col7 " unique_id=127589851]
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=127589851]
+transform = Transform3D(-4.371139e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_l72pb")
 
-[node name="Body Convex Col " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1949490934]
-transform = Transform3D(0, 0, 0.100000024, 0, 0.100000024, 0, -0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col " unique_id=1091848374]
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1091848374]
+transform = Transform3D(-4.371139e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_vkj2t")
 
-[node name="Body Convex Col9 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1615382045]
-transform = Transform3D(0, 0, 0.100000024, 0, 0.100000024, 0, -0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col9 " unique_id=1083002395]
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1083002395]
+transform = Transform3D(-4.371139e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_1bkhs")
 
-[node name="Body Convex Col10 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1055055643]
-transform = Transform3D(0, 0, 0.100000024, 0, 0.100000024, 0, -0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col10 " unique_id=1373036128]
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1373036128]
+transform = Transform3D(-4.371139e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_c6x05")
 
-[node name="Body Convex Col11" type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=80565587]
-transform = Transform3D(0, 0, 0.100000024, 0, 0.100000024, 0, -0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col11" unique_id=1158265376]
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1158265376]
+transform = Transform3D(-4.371139e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_5f86r")
 
-[node name="Body Convex Col12 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1911313028]
-transform = Transform3D(0, 0, -0.100000024, 0, 0.100000024, 0, 0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col12 " unique_id=214151071]
+[node name="CollisionShape3D13" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=214151071]
+transform = Transform3D(-4.371139e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_dymgh")
 
-[node name="Body Convex Col13 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=221338081]
-transform = Transform3D(0, 0, -0.100000024, 0, 0.100000024, 0, 0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col13 " unique_id=1135863575]
+[node name="CollisionShape3D14" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1135863575]
+transform = Transform3D(-4.371139e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_jyita")
 
-[node name="Body Convex Col14 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1042500960]
-transform = Transform3D(0, 0, -0.100000024, 0, 0.100000024, 0, 0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col14 " unique_id=1746374003]
+[node name="CollisionShape3D15" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1746374003]
+transform = Transform3D(-4.371139e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_jnx44")
 
-[node name="Body Convex Col15 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=88090546]
-transform = Transform3D(0, 0, -0.100000024, 0, 0.100000024, 0, 0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col15 " unique_id=459197313]
+[node name="CollisionShape3D16" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=459197313]
+transform = Transform3D(-4.371139e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_c7aai")
 
-[node name="Body Convex Col16 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=839783311]
-transform = Transform3D(0, 0, -0.100000024, 0, 0.100000024, 0, 0.100000024, 0, 0, -0.41200006, -0.40000004, -0.21800004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col16 " unique_id=1885969239]
+[node name="CollisionShape3D17" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1885969239]
+transform = Transform3D(-4.371139e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.371139e-09, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_547sn")
 
-[node name="Body Convex Col17 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1183533575]
-transform = Transform3D(-0.100000024, 0, -3.2584143e-08, 0, 0.100000024, 0, 3.2584143e-08, 0, -0.100000024, -0.41200006, -0.40000004, -0.21800002)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col17 " unique_id=740088990]
+[node name="CollisionShape3D18" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=740088990]
+transform = Transform3D(-0.1, 0, -3.8941437e-08, 0, 0.1, 0, 3.8941437e-08, 0, -0.1, 4.7683716e-07, 0, 4.7683716e-07)
 shape = SubResource("ConvexPolygonShape3D_srtj2")
 
-[node name="Body Convex Col18 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=1948604010]
-transform = Transform3D(-0.100000024, 0, -3.2584143e-08, 0, 0.100000024, 0, 3.2584143e-08, 0, -0.100000024, -0.41200006, -0.40000004, -0.21800002)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col18 " unique_id=890021069]
+[node name="CollisionShape3D19" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=890021069]
+transform = Transform3D(-0.1, 0, -3.8941437e-08, 0, 0.1, 0, 3.8941437e-08, 0, -0.1, 4.7683716e-07, 0, 4.7683716e-07)
 shape = SubResource("ConvexPolygonShape3D_5oe1e")
 
-[node name="Body Convex Col19 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=234881558]
-transform = Transform3D(-0.100000024, 0, -3.2584143e-08, 0, 0.100000024, 0, 3.2584143e-08, 0, -0.100000024, -0.41200006, -0.40000004, -0.21800002)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col19 " unique_id=128134506]
+[node name="CollisionShape3D20" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=128134506]
+transform = Transform3D(-0.1, 0, -3.8941437e-08, 0, 0.1, 0, 3.8941437e-08, 0, -0.1, 4.7683716e-07, 0, 4.7683716e-07)
 shape = SubResource("ConvexPolygonShape3D_nwvhf")
 
-[node name="Body Convex Col20 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=916229039]
-transform = Transform3D(-0.100000024, 0, -3.2584143e-08, 0, 0.100000024, 0, 3.2584143e-08, 0, -0.100000024, -0.41200006, -0.40000004, -0.21800002)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col20 " unique_id=1116530532]
+[node name="CollisionShape3D21" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1116530532]
+transform = Transform3D(-0.1, 0, -3.8941437e-08, 0, 0.1, 0, 3.8941437e-08, 0, -0.1, 4.7683716e-07, 0, 4.7683716e-07)
 shape = SubResource("ConvexPolygonShape3D_1grmk")
 
-[node name="Body Convex Col21 " type="StaticBody3D" parent="Quadruped/Body/RoBody" unique_id=999856417]
-transform = Transform3D(-0.100000024, 0, -3.2584143e-08, 0, 0.100000024, 0, 3.2584143e-08, 0, -0.100000024, -0.41200006, -0.40000004, -0.21800002)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col21 " unique_id=1434265121]
+[node name="CollisionShape3D22" type="CollisionShape3D" parent="Quadruped/Body/RoBody/Body Convex Col8" unique_id=1434265121]
+transform = Transform3D(-0.1, 0, -3.8941437e-08, 0, 0.1, 0, 3.8941437e-08, 0, -0.1, 4.7683716e-07, 0, 4.7683716e-07)
 shape = SubResource("ConvexPolygonShape3D_0l1ys")
 
 [node name="FootTargets" type="Node3D" parent="Quadruped" unique_id=2017630132]
