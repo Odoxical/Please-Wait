@@ -1,79 +1,44 @@
 [gd_scene format=3 uid="uid://diekpt4ps6pil"]
 
-[ext_resource type="PackedScene" uid="uid://dxv3muv7ryvob" path="res://scenes/foot.tscn" id="1_cm0pq"]
-[ext_resource type="PackedScene" uid="uid://byxe68xmad5i" path="res://scenes/Hand.tscn" id="1_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://cooj0dum68nt0" path="res://scenes/player.tscn" id="1_rarhs"]
 [ext_resource type="PackedScene" uid="uid://b0maeasvi2wsc" path="res://scenes/Foods.tscn" id="2_r0du0"]
-[ext_resource type="Script" uid="uid://b6nbi865n47ti" path="res://scripts/lose_condition.gd" id="2_uu6xs"]
-[ext_resource type="PackedScene" uid="uid://bof05yv81ttwj" path="res://Models/Body.glb" id="4_c01mt"]
+[ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="3_vcsgt"]
 [ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="5_fos0i"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_glv2v"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_7h64q"]
+size = Vector3(200.0456, 1, 190.62195)
 
-[sub_resource type="Sky" id="Sky_uu6xs"]
-sky_material = SubResource("ProceduralSkyMaterial_glv2v")
+[sub_resource type="BoxShape3D" id="BoxShape3D_f1fu2"]
+size = Vector3(57.38025, 7, 2)
 
-[sub_resource type="Environment" id="Environment_r0du0"]
-background_mode = 2
-sky = SubResource("Sky_uu6xs")
-tonemap_mode = 2
-glow_enabled = true
+[node name="Node3D" type="Node3D" unique_id=1018644971]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_r0du0"]
-size = Vector3(91, 1, 91)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_fos0i"]
-size = Vector3(201, 1, 191)
-
-[node name="Node3D" type="Node3D" unique_id=753034135]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=923049297]
-environment = SubResource("Environment_r0du0")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1648538583]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=52246290]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1254246641]
-transform = Transform3D(-4.3711392e-08, -0.49278814, 0.8701494, -1.7763565e-15, 0.8701493, 0.4927882, -1, 2.1540453e-08, -3.803544e-08, 5.9766593, 5.0001774, 1.4939303)
+[node name="Quadruped" parent="." unique_id=167216632 instance=ExtResource("1_rarhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Floor" parent="." unique_id=969005094 instance=ExtResource("5_fos0i")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -5.875, -1.112, 4.211)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=1676797442]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=618858364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.017426, 0.07256603, -80.26166)
+shape = SubResource("BoxShape3D_7h64q")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Floor" unique_id=1352022486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -70)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D2" unique_id=1430926957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.809874, 3, 10.499996)
+shape = SubResource("BoxShape3D_f1fu2")
+debug_color = Color(0.99999994, 0.119104885, 0.63879126, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=993865804]
+environment = ExtResource("3_vcsgt")
 
 [node name="Foods" parent="." unique_id=938991637 instance=ExtResource("2_r0du0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="Lose Condition" type="Area3D" parent="." unique_id=1594779735]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
-script = ExtResource("2_uu6xs")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Lose Condition" unique_id=2030921705]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28975964, -3.030384, -6.380924)
-shape = SubResource("BoxShape3D_r0du0")
-
-[node name="Floor" parent="." unique_id=1462755162 instance=ExtResource("5_fos0i")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -16, -54, -94)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=749133787]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=1857753862]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.00001, 0, -80)
-shape = SubResource("BoxShape3D_fos0i")
-
-[node name="Robody" parent="." unique_id=1250707232 instance=ExtResource("4_c01mt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
-
-[node name="Foot 1" parent="Robody" unique_id=1809652481 instance=ExtResource("1_cm0pq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -50, 22)
-
-[node name="Foot 2" parent="Robody" unique_id=1344933848 instance=ExtResource("1_cm0pq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106, -50, -58)
-
-[node name="Foot 3" parent="Robody" unique_id=1703887064 instance=ExtResource("1_cm0pq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106, -50, 22)
-
-[node name="Foot 4" parent="Robody" unique_id=1353529297 instance=ExtResource("1_cm0pq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -50, -58)
-
-[node name="Hand" parent="Robody" unique_id=1401876891 instance=ExtResource("1_uu6xs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62123394, 0, -5.7501698)
-
-[connection signal="area_entered" from="Lose Condition" to="Lose Condition" method="_on_area_entered"]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.102532744, 0.26474398, 0.33462578)
