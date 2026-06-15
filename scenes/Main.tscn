@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b0maeasvi2wsc" path="res://scenes/Foods.tscn" id="2_r0du0"]
 [ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="3_vcsgt"]
 [ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="5_fos0i"]
+[ext_resource type="PackedScene" uid="uid://0a2xqdmnfwgj" path="res://cute_bot/cute_bot.tscn" id="5_vcsgt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7h64q"]
 size = Vector3(200.0456, 1, 190.62195)
@@ -42,3 +43,8 @@ environment = ExtResource("3_vcsgt")
 
 [node name="Foods" parent="." unique_id=938991637 instance=ExtResource("2_r0du0")]
 transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.102532744, 0.26474398, 0.33462578)
+
+[node name="CuteBot" parent="." unique_id=1869795653 instance=ExtResource("5_vcsgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+max_lean = 2.0
+com_balance_bias = 0.8
