@@ -41,7 +41,7 @@ func _draw():
 		draw_rect(rect, fill)
 		if leg == bot.selected_leg:
 			draw_rect(rect, Color(0.2, 1.0, 0.4), false, 3.0)
-		var label_col = Color(1, 1, 1, 0.9) if leg == bot.selected_leg else Color(1, 1, 1, 0.55)
+		var label_col = Color(0, 1, 1, 0.9) if leg == bot.selected_leg else Color(1, 1, 1, 0.55)
 		draw_string(font, rect.position + Vector2(16, 28), cell[2], HORIZONTAL_ALIGNMENT_LEFT, -1, 16, label_col)
 
 	if bot.is_tipping:

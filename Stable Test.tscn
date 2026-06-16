@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cig116kl8m6pt"]
+
+[ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="1_p3ldq"]
+[ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="2_f83d6"]
+[ext_resource type="PackedScene" uid="uid://0a2xqdmnfwgj" path="res://cute_bot/cute_bot.tscn" id="3_r70c6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4l4p1"]
+size = Vector3(200.0456, 1, 190.62195)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_27mjc"]
+size = Vector3(57.38025, 7, 2)
+
+[node name="WorldEnvironment" type="WorldEnvironment" unique_id=773262628]
+environment = ExtResource("1_p3ldq")
+
+[node name="Floor" parent="." unique_id=275337485 instance=ExtResource("2_f83d6")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -9.875, -1.112, 4.211)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=41519063]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=283233194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.017426, 0.07256603, -80.26166)
+shape = SubResource("BoxShape3D_4l4p1")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Floor" unique_id=1198791906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -70)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D2" unique_id=400213487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.809874, 3, 10.499996)
+shape = SubResource("BoxShape3D_27mjc")
+debug_color = Color(0.99999994, 0.119104885, 0.63879126, 1)
+
+[node name="CuteBot" parent="." unique_id=984510385 instance=ExtResource("3_r70c6")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.125, 0.088, -0.78900003)
+max_lean = 2.0
+com_balance_bias = 0.3
