@@ -1,0 +1,6 @@
+The Location of the Visual COM I want.
+var com2 := Vector2(com.x, com.z)
+The adjusted position for the shifted center of mass is 
+_visual_com = _visual_com.lerp(_biased_com, com_visual_lerp_speed * delta)
+and
+_biased_com

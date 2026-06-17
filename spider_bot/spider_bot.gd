@@ -365,25 +365,11 @@ func _create_com_visuals():
 	_com_marker.top_level     = true
 	add_child(_com_marker)
 
-	# ImmediateMesh for the support polygon (redrawn every frame)
-	_polygon_imm  = ImmediateMesh.new()
-	_polygon_mesh = MeshInstance3D.new()
-	_polygon_mesh.mesh        = _polygon_imm
-	_polygon_mesh.top_level   = true          # vertices are world-space
-	var poly_mat = StandardMaterial3D.new()
-	poly_mat.shading_mode              = BaseMaterial3D.SHADING_MODE_UNSHADED
-	poly_mat.vertex_color_use_as_albedo = true
-	poly_mat.transparency              = BaseMaterial3D.TRANSPARENCY_ALPHA
-	poly_mat.cull_mode                 = BaseMaterial3D.CULL_DISABLED
-	_polygon_mesh.material_override    = poly_mat
-	add_child(_polygon_mesh)
-
 
 func _update_com_visuals(delta: float):
 	# Smoothly chase the biased COM estimate
 	_visual_com = _visual_com.lerp(_biased_com, com_visual_lerp_speed * delta)
 	
-	_polygon_imm.clear_surfaces()
 	
 	var support: Array = []
 	for leg in home_offsets:
