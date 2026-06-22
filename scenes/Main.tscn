@@ -48,3 +48,4 @@ transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.102532744, 0.26474
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 max_lean = 2.0
 com_balance_bias = 0.8
+com_visual_lerp_speed = 3.0

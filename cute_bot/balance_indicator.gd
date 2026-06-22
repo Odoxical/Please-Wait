@@ -34,7 +34,7 @@ func _process(_delta):
 		ground_y += f.y
 	ground_y = ground_y / feet.size() + 0.05
 
-	var com = bot.global_position
+	var com = bot._visual_com  # smoothly interpolated biased COM
 	var com2 := Vector2(com.x, com.z)
 	var margin = _stability_margin(feet, com2)
 	var t = clampf(margin, 0.0, 1.0)

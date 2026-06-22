@@ -13,19 +13,15 @@ extends Node3D
 @export var lean_speed: float = 2.0
 @export var max_lean: float = 1.0
 @export var com_balance_bias: float = 1.0
+@export var com_visual_lerp_speed: float = 6.0
 
 @onready var fl_leg = $FrontLeftIKTarget
 @onready var fr_leg = $FrontRightIKTarget
-
 @onready var bl_leg = $BackLeftIKTarget
 @onready var br_leg = $BackRightIKTarget
-@export var com_visual_lerp_speed: float = 6.0
 
-var _biased_com    := Vector3.ZERO
-var _visual_com    := Vector3.ZERO
-var _com_marker    : MeshInstance3D
-var _polygon_mesh  : MeshInstance3D
-var _polygon_imm   : ImmediateMesh
+var _biased_com := Vector3.ZERO
+var _visual_com := Vector3.ZERO
 
 var selected_leg: Node3D
 var home_offsets := {}
@@ -39,7 +35,6 @@ var leg_order: Array = []
 var leg_names := {}
 var snap_requested := false
 var lean_offset := Vector2.ZERO
-var com = global_position
 
 func _ready():
 	home_offsets = {
@@ -58,10 +53,9 @@ func _ready():
 		bl_leg: "Back Left",
 		br_leg: "Back Right",
 	}
-	
+
 	_biased_com = global_position
 	_visual_com = global_position
-	_create_com_visuals()
 
 	_create_highlight()
 	_select_leg(fl_leg)
@@ -132,7 +126,9 @@ func _process(delta):
 			var target_pos = avg + transform.basis.y * ground_offset
 			var distance = transform.basis.y.dot(target_pos - position)
 			position = lerp(position, position + transform.basis.y * distance, move_speed * delta)
-	_update_com_visuals(delta)
+
+	# Smoothly chase the biased COM for the indicator to read
+	_visual_com = _visual_com.lerp(_biased_com, com_visual_lerp_speed * delta)
 
 	if selected_leg:
 		highlight.global_position = selected_leg.global_position
@@ -201,7 +197,8 @@ func _find_tip_pivot(support: Array) -> Array:
 			away.y = 0
 			if away.length() > 0.001:
 				com += away.normalized() * com_balance_bias
-				_biased_com = com          # expose to _process for the visual
+	_biased_com = com   # always capture final value for the visual
+
 	if support.size() == 1:
 		# Single foot: pivot about it, falling away in the direction of the body
 		var foot = support[0].global_position
@@ -349,58 +346,3 @@ func _basis_from_normal(normal: Vector3) -> Basis:
 	result.z *= scale.z
 
 	return result
-func _create_com_visuals():
-	# Orange glowing sphere that tracks the estimated COM
-	_com_marker = MeshInstance3D.new()
-	var s = SphereMesh.new()
-	s.radius = 0.25
-	s.height = 0.5
-	var mat = StandardMaterial3D.new()
-	mat.albedo_color          = Color(1.0, 0.45, 0.0)
-	mat.emission_enabled      = true
-	mat.emission              = Color(1.0, 0.45, 0.0)
-	mat.emission_energy_multiplier = 2.5
-	s.material                = mat
-	_com_marker.mesh          = s
-	_com_marker.top_level     = true
-	add_child(_com_marker)
-
-
-func _update_com_visuals(delta: float):
-	# Smoothly chase the biased COM estimate
-	_visual_com = _visual_com.lerp(_biased_com, com_visual_lerp_speed * delta)
-	
-	
-	var support: Array = []
-	for leg in home_offsets:
-		if planted.get(leg, true):
-			support.append(leg)
-	
-	if support.is_empty():
-		_com_marker.visible = false
-		return
-	_com_marker.visible = true
-	
-	# Draw the marker just above the planted feet
-	var avg_y := 0.0
-	for leg in support:
-		avg_y += leg.global_position.y
-	avg_y = avg_y / support.size() + 0.08
-	_com_marker.global_position = Vector3(_visual_com.x, avg_y + 0.15, _visual_com.z)
-	
-	if support.size() < 2:
-		return   # single foot — no meaningful polygon to draw
-		
-	var pts_2d := PackedVector2Array()
-	for leg in support:
-		var p = leg.global_position
-		pts_2d.append(Vector2(p.x, p.z))
-	
-	# hull is a closed loop (last point == first) from convex_hull
-	var hull: PackedVector2Array
-	if support.size() >= 3:
-		hull = Geometry2D.convex_hull(pts_2d)
-	else:
-		hull = pts_2d        # 2 feet: draw the edge as a line
-		hull.append(pts_2d[0])
-	
