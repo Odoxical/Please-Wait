@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c6l4410t2ax4j"]
 
-[ext_resource type="PackedScene" path="res://foot.tscn" id="1_cm0pq"]
-[ext_resource type="PackedScene" uid="uid://8e7b3wsq3vmw" path="res://Hand.tscn" id="1_uu6xs"]
-[ext_resource type="PackedScene" path="res://Foods.tscn" id="2_r0du0"]
+[ext_resource type="PackedScene" uid="uid://bdd16ytq2cag2" path="res://foot.tscn" id="1_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://8e7b3wsq3vmw" path="res://scenes/Hand.tscn" id="1_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://bbg0v5h3jpwww" path="res://Foods.tscn" id="2_r0du0"]
 [ext_resource type="Script" path="res://lose_condition.gd" id="2_uu6xs"]
 [ext_resource type="PackedScene" path="res://Floor.glb" id="5_fos0i"]
 

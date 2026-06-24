@@ -72,4 +72,4 @@ func _process(delta):
 		position.z = flat_pos.y
 	if flat_pos.length() > 0.05:
 		var angle = atan2(flat_pos.x, flat_pos.y)
-		rotation.y = angle + 1.5
+		rotation.y = angle + 0

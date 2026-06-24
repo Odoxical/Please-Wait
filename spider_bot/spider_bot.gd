@@ -285,14 +285,9 @@ func _apply_gravity(delta):
 func _handle_leg_input(delta):
 	if !selected_leg:
 		return
-
 	var forward_input = float(Input.is_key_pressed(KEY_W)) - float(Input.is_key_pressed(KEY_S))
 	var right_input = float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A))
 	var up_input = float(Input.is_key_pressed(KEY_E)) - float(Input.is_key_pressed(KEY_Q))
-
-	if forward_input == 0 && right_input == 0 && up_input == 0:
-		return
-
 	# Move on the world XZ plane relative to the camera, so W is always
 	# "away from the viewer" no matter how the body has twisted
 	var cam = get_viewport().get_camera_3d()

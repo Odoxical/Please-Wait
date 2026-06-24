@@ -1,25 +1,19 @@
 [gd_scene format=3 uid="uid://diekpt4ps6pil"]
 
-[ext_resource type="PackedScene" uid="uid://cooj0dum68nt0" path="res://scenes/player.tscn" id="1_rarhs"]
 [ext_resource type="PackedScene" uid="uid://b0maeasvi2wsc" path="res://scenes/Foods.tscn" id="2_r0du0"]
 [ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="3_vcsgt"]
+[ext_resource type="PackedScene" uid="uid://8e7b3wsq3vmw" path="res://scenes/Hand.tscn" id="5_c01mt"]
 [ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="5_fos0i"]
 [ext_resource type="PackedScene" uid="uid://0a2xqdmnfwgj" path="res://cute_bot/cute_bot.tscn" id="5_vcsgt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7h64q"]
 size = Vector3(200.0456, 1, 190.62195)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_f1fu2"]
-size = Vector3(57.38025, 7, 2)
-
 [node name="Node3D" type="Node3D" unique_id=1018644971]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=52246290]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
-
-[node name="Quadruped" parent="." unique_id=167216632 instance=ExtResource("1_rarhs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="Floor" parent="." unique_id=969005094 instance=ExtResource("5_fos0i")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -5.875, -1.112, 4.211)
@@ -30,22 +24,20 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -5.875, -1.112, 4.211)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.017426, 0.07256603, -80.26166)
 shape = SubResource("BoxShape3D_7h64q")
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="Floor" unique_id=1352022486]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -70)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D2" unique_id=1430926957]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.809874, 3, 10.499996)
-shape = SubResource("BoxShape3D_f1fu2")
-debug_color = Color(0.99999994, 0.119104885, 0.63879126, 1)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=993865804]
 environment = ExtResource("3_vcsgt")
 
 [node name="Foods" parent="." unique_id=938991637 instance=ExtResource("2_r0du0")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.102532744, 0.26474398, 0.33462578)
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.102532744, 2.264744, -0.6653742)
 
 [node name="CuteBot" parent="." unique_id=1869795653 instance=ExtResource("5_vcsgt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2, 0)
+max_leg_reach = 1.5
 max_lean = 2.0
-com_balance_bias = 0.8
+com_balance_bias = 0.4
 com_visual_lerp_speed = 3.0
+
+[node name="Hand" parent="CuteBot" unique_id=120564580 instance=ExtResource("5_c01mt")]
+transform = Transform3D(-2, 0, 1.7484555e-07, 0, 2, 0, -1.7484555e-07, 0, -2, 0, 0, 0)
+normal_arm_length = 4.0
+panic_arm_length = 6.0
