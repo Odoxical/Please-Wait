@@ -24,6 +24,9 @@ var panic_mode = Globals.panic_mode
 	$"../FootTargets/FootTarget_RR",
 ]
 
+@onready var state=FootTarget.FootState
+@onready var grounded=FootTarget.FootState.GROUNDED
+
 const ACTION_SELECT := ["select_foot_1", "select_foot_2", "select_foot_3", "select_foot_4"]
 const ACTION_MOVE_FORWARD  := "move_forward"
 const ACTION_MOVE_BACK     := "move_back"
@@ -77,10 +80,10 @@ func _process(delta: float) -> void:
 		return
 
 	var dir := Vector3.ZERO
-	if Input.is_action_pressed(ACTION_MOVE_FORWARD): dir.z -= 1.0
-	if Input.is_action_pressed(ACTION_MOVE_BACK):    dir.z += 1.0
-	if Input.is_action_pressed(ACTION_MOVE_LEFT):    dir.x -= 1.0
-	if Input.is_action_pressed(ACTION_MOVE_RIGHT):   dir.x += 1.0
+	if Input.is_action_pressed(ACTION_MOVE_FORWARD) and state != grounded: dir.z -= 1.0
+	if Input.is_action_pressed(ACTION_MOVE_BACK)and state != grounded:    dir.z += 1.0
+	if Input.is_action_pressed(ACTION_MOVE_LEFT)and state != grounded:    dir.x -= 1.0
+	if Input.is_action_pressed(ACTION_MOVE_RIGHT)and state != grounded:   dir.x += 1.0
 
 
 	if dir == Vector3.ZERO:

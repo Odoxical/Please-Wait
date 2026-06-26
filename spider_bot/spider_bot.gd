@@ -318,6 +318,7 @@ func _handle_leg_input(delta):
 func _ground_height(pos: Vector3) -> float:
 	var space = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(pos + Vector3.UP * 10.0, pos + Vector3.DOWN * 10.0)
+	query.collision_mask = 1
 	var hit = space.intersect_ray(query)
 	if hit:
 		return hit.position.y
