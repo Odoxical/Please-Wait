@@ -28,7 +28,7 @@ shape = SubResource("BoxShape3D_7h64q")
 environment = ExtResource("3_vcsgt")
 
 [node name="Foods" parent="." unique_id=938991637 instance=ExtResource("2_r0du0")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.102532744, 2.264744, -0.6653742)
+transform = Transform3D(0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 0.102532744, 2.0832756, -0.2783485)
 
 [node name="CuteBot" parent="." unique_id=1869795653 instance=ExtResource("5_vcsgt")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2, 0)

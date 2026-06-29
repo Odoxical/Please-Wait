@@ -285,35 +285,41 @@ func _apply_gravity(delta):
 func _handle_leg_input(delta):
 	if !selected_leg:
 		return
-	var forward_input = float(Input.is_key_pressed(KEY_W)) - float(Input.is_key_pressed(KEY_S))
-	var right_input = float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A))
-	var up_input = float(Input.is_key_pressed(KEY_E)) - float(Input.is_key_pressed(KEY_Q))
-	# Move on the world XZ plane relative to the camera, so W is always
-	# "away from the viewer" no matter how the body has twisted
-	var cam = get_viewport().get_camera_3d()
-	var view_basis = cam.global_transform.basis if cam else transform.basis
-	var forward = -view_basis.z
-	forward.y = 0
-	forward = forward.normalized()
-	var right = view_basis.x
-	right.y = 0
-	right = right.normalized()
+		return
+	else:
+		var forward_input = float(Input.is_key_pressed(KEY_W)) - float(Input.is_key_pressed(KEY_S))
+		var right_input = float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A))
+		var up_input = float(Input.is_key_pressed(KEY_E)) - float(Input.is_key_pressed(KEY_Q))
+		# Move on the world XZ plane relative to the camera, so W is always
+		# "away from the viewer" no matter how the body has twisted
+		if planted.get(selected_leg, false):
+			forward_input = 0.0
+			right_input   = 0.0
+		var cam = get_viewport().get_camera_3d()
+		var view_basis = cam.global_transform.basis if cam else transform.basis
+		var forward = -view_basis.z
+		forward.y = 0
+		forward = forward.normalized()
+		var right = view_basis.x
+		right.y = 0
+		right = right.normalized()
 
-	var motion = forward * forward_input + right * right_input + Vector3.UP * up_input
-	var new_pos = selected_leg.global_position + motion * leg_move_speed * delta
+		var motion = forward * forward_input + right * right_input + Vector3.UP * up_input
+		var new_pos = selected_leg.global_position + motion * leg_move_speed * delta
 
-	# Keep the foot within reach of its rest position on the body
-	var anchor = global_transform * home_offsets[selected_leg]
-	var offset = new_pos - anchor
-	if offset.length() > max_leg_reach:
-		new_pos = anchor + offset.normalized() * max_leg_reach
+		# Keep the foot within reach of its rest position on the body
+		var anchor = global_transform * home_offsets[selected_leg]
+		var offset = new_pos - anchor
+		if offset.length() > max_leg_reach:
+			new_pos = anchor + offset.normalized() * max_leg_reach
 
-	# Don't let the foot go below the ground
-	var floor_y = _ground_height(new_pos)
-	if new_pos.y < floor_y:
-		new_pos.y = floor_y
+		# Don't let the foot go below the ground
+		var floor_y = _ground_height(new_pos)
+		if new_pos.y < floor_y:
+			new_pos.y = floor_y
 
-	selected_leg.global_position = new_pos
+		selected_leg.global_position = new_pos
+	
 
 func _ground_height(pos: Vector3) -> float:
 	var space = get_world_3d().direct_space_state

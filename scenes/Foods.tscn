@@ -1,5 +1,7 @@
 [gd_scene format=4 uid="uid://b0maeasvi2wsc"]
 
+[ext_resource type="Script" uid="uid://df2ab41r35af5" path="res://scenes/food.gd" id="1_mm33w"]
+
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wi5e7"]
 points = PackedVector3Array(0.6147264, 0.25, 0.29951543, 0.26773554, 0.25, 0.6223185, 0.6147264, -0.25, 0.29951543, 0.26773554, 0.25, -0.2932782, 0.26773554, -0.25, 0.6223185, -0.2993682, 0.25, 0.6202527, 0.26773554, -0.25, -0.2932782, -0.2993682, 0.25, -0.29525417, -0.2993682, -0.25, 0.6202527, -0.2993682, -0.25, -0.29525417)
 
@@ -140,12 +142,16 @@ shadow_mesh = SubResource("ArrayMesh_v0coq")
 [node name="Foods" type="Node3D" unique_id=938991637]
 
 [node name="Food" type="Node3D" parent="." unique_id=1820677113]
+script = ExtResource("1_mm33w")
 
 [node name="Steak " type="RigidBody3D" parent="Food" unique_id=1887626303 groups=["Food Item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8267602, 0.5942354, -0.08542764)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 3
+collision_mask = 3
 mass = 0.5
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Food/Steak " unique_id=323979852]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
@@ -166,9 +172,12 @@ mesh = SubResource("ArrayMesh_3qddw")
 
 [node name="Apple Colisons" type="RigidBody3D" parent="Food" unique_id=1350903032 groups=["Food Item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.64351475, 0.8875176, -0.13370967)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 3
+collision_mask = 3
 mass = 0.15
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Food/Apple Colisons" unique_id=197053880]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
@@ -180,10 +189,11 @@ layers = 3
 mesh = SubResource("ArrayMesh_4txcy")
 
 [node name="Plate Collisons" type="RigidBody3D" parent="Food" unique_id=1000638954]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 3
+collision_mask = 3
 mass = 0.9
 physics_material_override = SubResource("PhysicsMaterial_iulsq")
+can_sleep = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Food/Plate Collisons" unique_id=26571379]
 shape = SubResource("ConvexPolygonShape3D_kcbag")
@@ -191,3 +201,6 @@ shape = SubResource("ConvexPolygonShape3D_kcbag")
 [node name="Plate " type="MeshInstance3D" parent="Food/Plate Collisons" unique_id=1971431349]
 layers = 3
 mesh = SubResource("ArrayMesh_hcfxp")
+
+[connection signal="body_entered" from="Food/Steak " to="Food" method="_on_steak__body_entered"]
+[connection signal="body_entered" from="Food/Apple Colisons" to="Food" method="_on_apple_colisons_body_entered"]
