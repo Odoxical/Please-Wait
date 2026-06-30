@@ -50,6 +50,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_k3lfl")
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mm33w"]
+rough = true
+bounce = 0.2
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_iulsq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ff2rw"]
@@ -94,6 +98,7 @@ shadow_mesh = SubResource("ArrayMesh_cbuce")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_iulsq"]
 rough = true
+absorbent = true
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kcbag"]
 points = PackedVector3Array(0, 0.33781, -2.5795062, 0, 0.21161446, -2.5694063, -0.5014584, 0.21161446, -2.520422, -0.5034785, 0.33781, -2.530017, 0.5029733, 0.33781, -2.530017, 0.50095344, 0.21161446, -2.520422, 0, 0.07224901, -2.0123987, -0.39288497, 0.07224901, -1.974019, -0.9837271, 0.21161446, -2.3739738, -0.987262, 0.33781, -2.3835688, 0.98675704, 0.33781, -2.3835688, 0.983222, 0.21161446, -2.3739738, 0.39237976, 0.07224901, -1.974019, 0, 0.00032703206, -1.4846805, -0.2898662, 0.00032703206, -1.4558959, -0.5681176, 0.00032703206, -1.371562, -0.7701149, 0.07224901, -1.8593856, -1.1180553, 0.07224901, -1.673548, -1.4276162, 0.21161446, -2.136627, -1.4331713, 0.33781, -2.145212, 1.4326661, 0.33781, -2.145212, 1.4271114, 0.21161446, -2.136627, 1.1175504, 0.07224901, -1.673548, 0.7696099, 0.07224901, -1.8593856, 0.5676124, 0.00032703206, -1.371562, 0.28936124, 0.00032703206, -1.4558959, 0.19543242, -0.049923472, -0.9837271, 0, -0.049923472, -1.0029168, -0.1959374, -0.049923472, -0.9837271, -0.8246542, 0.00032703206, -1.2342038, -0.38379502, -0.049923472, -0.9266629, -0.55751276, -0.049923472, -0.834249, -1.4230714, 0.07224901, -1.4230714, -1.8169662, 0.21161446, -1.8169662, -1.0498812, 0.00032703206, -1.0498812, -1.8240361, 0.33781, -1.8240361, 1.8235309, 0.33781, -1.8240361, 1.8164613, 0.21161446, -1.8169662, 1.0493762, 0.00032703206, -1.0498812, 0.82414913, 0.00032703206, -1.2342038, 1.4225662, 0.07224901, -1.4230714, 0.55700755, -0.049923472, -0.834249, 0.3832898, -0.049923472, -0.9266629, -0.7095157, -0.049923472, -0.7095157, -1.673548, 0.07224901, -1.1180553, -2.136627, 0.21161446, -1.4276162, -2.145212, 0.33781, -1.4331713, -0.834249, -0.049923472, -0.55751276, -1.2342038, 0.00032703206, -0.8246542, 2.144707, 0.33781, -1.4331713, 1.673043, 0.07224901, -1.1180553, 2.136122, 0.21161446, -1.4276162, 0.83374405, -0.049923472, -0.55751276, 0.7090106, -0.049923472, -0.7095157, 1.2336988, 0.00032703206, -0.8246542, -1.371562, 0.00032703206, -0.5681176, -1.8593856, 0.07224901, -0.7701149, -2.3739738, 0.21161446, -0.9837271, -2.3835688, 0.33781, -0.987262, -0.9266629, -0.049923472, -0.38379502, 2.3830636, 0.33781, -0.987262, 2.3734686, 0.21161446, -0.9837271, 1.371057, 0.00032703206, -0.5681176, 1.8588808, 0.07224901, -0.7701149, 0.9261577, -0.049923472, -0.38379502, -0.9837271, -0.049923472, -0.1959374, -1.4558959, 0.00032703206, -0.2898662, -1.974019, 0.07224901, -0.39288497, -2.520422, 0.21161446, -0.5014584, -2.530017, 0.33781, -0.5034785, 2.5295117, 0.33781, -0.5034785, 2.5199168, 0.21161446, -0.5014584, 1.9735138, 0.07224901, -0.39288497, 1.4553907, 0.00032703206, -0.2898662, 0.983222, -0.049923472, -0.1959374, -1.0029168, -0.049923472, 0, -1.4846805, 0.00032703206, 0, -2.0123987, 0.07224901, 0, -2.5694063, 0.21161446, 0, -2.5795062, 0.33781, 0, 2.5795062, 0.33781, 0, 2.5689013, 0.21161446, 0, 2.0118935, 0.07224901, 0, 1.4841754, 0.00032703206, 0, 1.0024118, -0.049923472, 0, -0.9837271, -0.049923472, 0.19543242, -1.4558959, 0.00032703206, 0.28936124, -1.974019, 0.07224901, 0.39237976, -2.520422, 0.21161446, 0.50095344, -2.530017, 0.33781, 0.5029733, 2.5295117, 0.33781, 0.5029733, 2.5199168, 0.21161446, 0.50095344, 1.9735138, 0.07224901, 0.39237976, 1.4553907, 0.00032703206, 0.28936124, 0.983222, -0.049923472, 0.19543242, -0.9266629, -0.049923472, 0.3832898, -1.371562, 0.00032703206, 0.5676124, -1.8593856, 0.07224901, 0.7696099, -2.3739738, 0.21161446, 0.983222, -2.3835688, 0.33781, 0.98675704, 2.3830636, 0.33781, 0.98675704, 2.3734686, 0.21161446, 0.983222, 1.8588808, 0.07224901, 0.7696099, 1.371057, 0.00032703206, 0.5676124, 0.9261577, -0.049923472, 0.3832898, -0.834249, -0.049923472, 0.55700755, -1.2342038, 0.00032703206, 0.82414913, -1.673548, 0.07224901, 1.1175504, -2.136627, 0.21161446, 1.4271114, -2.145212, 0.33781, 1.4326661, 2.144707, 0.33781, 1.4326661, 2.136122, 0.21161446, 1.4271114, 1.673043, 0.07224901, 1.1175504, 1.2336988, 0.00032703206, 0.82414913, 0.83374405, -0.049923472, 0.55700755, -0.7095157, -0.049923472, 0.7090106, -1.0498812, 0.00032703206, 1.0493762, -1.4230714, 0.07224901, 1.4225662, -1.8169662, 0.21161446, 1.8164613, -1.8240361, 0.33781, 1.8235309, 1.8235309, 0.33781, 1.8235309, 1.8164613, 0.21161446, 1.8164613, 1.4225662, 0.07224901, 1.4225662, 1.0493762, 0.00032703206, 1.0493762, 0.7090106, -0.049923472, 0.7090106, -0.55751276, -0.049923472, 0.83374405, -0.8246542, 0.00032703206, 1.2336988, -1.1180553, 0.07224901, 1.673043, -1.4276162, 0.21161446, 2.136122, -1.4331713, 0.33781, 2.144707, 1.4326661, 0.33781, 2.144707, 1.4271114, 0.21161446, 2.136122, 1.1175504, 0.07224901, 1.673043, 0.82414913, 0.00032703206, 1.2336988, 0.55700755, -0.049923472, 0.83374405, -0.38379502, -0.049923472, 0.9261577, -0.5681176, 0.00032703206, 1.371057, -0.7701149, 0.07224901, 1.8588808, -0.9837271, 0.21161446, 2.3734686, -0.987262, 0.33781, 2.3830636, 0.98675704, 0.33781, 2.3830636, 0.983222, 0.21161446, 2.3734686, 0.7696099, 0.07224901, 1.8588808, 0.5676124, 0.00032703206, 1.371057, 0.3832898, -0.049923472, 0.9261577, -0.1959374, -0.049923472, 0.983222, -0.2898662, 0.00032703206, 1.4553907, -0.39288497, 0.07224901, 1.9735138, -0.5014584, 0.21161446, 2.5199168, -0.5034785, 0.33781, 2.5295117, 0.5029733, 0.33781, 2.5295117, 0.50095344, 0.21161446, 2.5199168, 0.39237976, 0.07224901, 1.9735138, 0.28936124, 0.00032703206, 1.4553907, 0.19543242, -0.049923472, 0.983222, 0, -0.049923472, 1.0024118, 0, 0.00032703206, 1.4841754, 0, 0.07224901, 2.0118935, 0, 0.21161446, 2.5689013, 0, 0.33781, 2.5795062)
@@ -141,66 +146,70 @@ shadow_mesh = SubResource("ArrayMesh_v0coq")
 
 [node name="Foods" type="Node3D" unique_id=938991637]
 
-[node name="Food" type="Node3D" parent="." unique_id=1820677113]
+[node name="Steak \'n Apple" type="Node3D" parent="." unique_id=1820677113]
 script = ExtResource("1_mm33w")
 
-[node name="Steak " type="RigidBody3D" parent="Food" unique_id=1887626303 groups=["Food Item"]]
+[node name="Steak " type="RigidBody3D" parent="Steak \'n Apple" unique_id=1887626303 groups=["Food Item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8267602, 0.5942354, -0.08542764)
 collision_layer = 3
 collision_mask = 3
 mass = 0.5
 can_sleep = false
 contact_monitor = true
-max_contacts_reported = 1
+max_contacts_reported = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Food/Steak " unique_id=323979852]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Steak \'n Apple/Steak " unique_id=323979852]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_wi5e7")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Food/Steak " unique_id=1426869662]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Steak \'n Apple/Steak " unique_id=1426869662]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0.01999998, 0, 0.8700001)
 shape = SubResource("ConvexPolygonShape3D_6nwq4")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Food/Steak " unique_id=1010947503]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Steak \'n Apple/Steak " unique_id=1010947503]
 transform = Transform3D(1.0625184, 0, -0.28470096, 0, 1.1, 0, 0.28470096, 0, 1.0625184, 0.6816325, -1.7285347e-06, 0.43984008)
 shape = SubResource("ConvexPolygonShape3D_kwvm2")
 
-[node name="Steak Vis" type="MeshInstance3D" parent="Food/Steak " unique_id=778051361]
+[node name="Steak Vis" type="MeshInstance3D" parent="Steak \'n Apple/Steak " unique_id=778051361]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.68770313, 1.7881393e-07, 0.9793458)
 layers = 3
 mesh = SubResource("ArrayMesh_3qddw")
 
-[node name="Apple Colisons" type="RigidBody3D" parent="Food" unique_id=1350903032 groups=["Food Item"]]
+[node name="Apple Colisons" type="RigidBody3D" parent="Steak \'n Apple" unique_id=1350903032 groups=["Food Item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.64351475, 0.8875176, -0.13370967)
 collision_layer = 3
 collision_mask = 3
 mass = 0.15
+physics_material_override = SubResource("PhysicsMaterial_mm33w")
 can_sleep = false
 contact_monitor = true
 max_contacts_reported = 1
+angular_damp = 1.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Food/Apple Colisons" unique_id=197053880]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Steak \'n Apple/Apple Colisons" unique_id=197053880]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
 shape = SubResource("SphereShape3D_iulsq")
 
-[node name="Apple Vis" type="MeshInstance3D" parent="Food/Apple Colisons" unique_id=236389708]
+[node name="Apple Vis" type="MeshInstance3D" parent="Steak \'n Apple/Apple Colisons" unique_id=236389708]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00060224533, 0.0067172647, 0.00016522408)
 layers = 3
 mesh = SubResource("ArrayMesh_4txcy")
 
-[node name="Plate Collisons" type="RigidBody3D" parent="Food" unique_id=1000638954]
+[node name="Plate Collisons" type="RigidBody3D" parent="Steak \'n Apple" unique_id=1000638954]
 collision_layer = 3
 collision_mask = 3
 mass = 0.9
 physics_material_override = SubResource("PhysicsMaterial_iulsq")
 can_sleep = false
+contact_monitor = true
+max_contacts_reported = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Food/Plate Collisons" unique_id=26571379]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Steak \'n Apple/Plate Collisons" unique_id=26571379]
 shape = SubResource("ConvexPolygonShape3D_kcbag")
 
-[node name="Plate " type="MeshInstance3D" parent="Food/Plate Collisons" unique_id=1971431349]
+[node name="Plate " type="MeshInstance3D" parent="Steak \'n Apple/Plate Collisons" unique_id=1971431349]
 layers = 3
 mesh = SubResource("ArrayMesh_hcfxp")
 
-[connection signal="body_entered" from="Food/Steak " to="Food" method="_on_steak__body_entered"]
-[connection signal="body_entered" from="Food/Apple Colisons" to="Food" method="_on_apple_colisons_body_entered"]
+[connection signal="body_entered" from="Steak \'n Apple/Steak " to="Steak \'n Apple" method="_on_steak__body_entered"]
+[connection signal="body_entered" from="Steak \'n Apple/Apple Colisons" to="Steak \'n Apple" method="_on_apple_colisons_body_entered"]
