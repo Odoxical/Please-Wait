@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://diekpt4ps6pil"]
 
-[ext_resource type="PackedScene" uid="uid://b0maeasvi2wsc" path="res://scenes/Foods.tscn" id="2_r0du0"]
 [ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="3_vcsgt"]
+[ext_resource type="Script" uid="uid://cdj3fw1dgism2" path="res://scenes/Victory_Area.gd" id="5_c01mt"]
 [ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="5_fos0i"]
 [ext_resource type="PackedScene" uid="uid://0a2xqdmnfwgj" path="res://cute_bot/cute_bot.tscn" id="5_vcsgt"]
+[ext_resource type="PackedScene" uid="uid://b8hgny6ttjh4c" path="res://foodCSGPlate.tscn" id="6_c01mt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7h64q"]
 size = Vector3(200.0456, 1, 190.62195)
@@ -11,7 +12,11 @@ size = Vector3(200.0456, 1, 190.62195)
 [sub_resource type="BoxShape3D" id="BoxShape3D_rarhs"]
 size = Vector3(5, 1, 5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_se47f"]
+transparency = 1
+
 [sub_resource type="BoxMesh" id="BoxMesh_vcsgt"]
+material = SubResource("StandardMaterial3D_se47f")
 
 [node name="Node3D" type="Node3D" unique_id=1018644971]
 
@@ -31,9 +36,6 @@ shape = SubResource("BoxShape3D_7h64q")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=993865804]
 environment = ExtResource("3_vcsgt")
 
-[node name="Foods" parent="." unique_id=938991637 instance=ExtResource("2_r0du0")]
-transform = Transform3D(0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 0.1, 2, 0)
-
 [node name="CuteBot" parent="." unique_id=1869795653 instance=ExtResource("5_vcsgt")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2, 0)
 max_leg_reach = 1.5
@@ -43,17 +45,20 @@ com_visual_lerp_speed = 3.0
 
 [node name="Body Convex Col8 " parent="CuteBot/Body2" parent_id_path=PackedInt32Array(1869795653, 318634261) index="1" unique_id=1941240132 groups=["dirty"]]
 
-[node name="Area3D" type="Area3D" parent="." unique_id=712089671]
-transform = Transform3D(0.17677674, 0, -0.17677674, 0, 0.25000006, 0, 0.17677674, 0, 0.17677674, -0.3429468, 0.67499983, -1.1136934)
+[node name="VictoryArea" type="Area3D" parent="." unique_id=712089671]
+transform = Transform3D(0.25000006, 0, 0, 0, 0.25000006, 0, 0, 0, 0.25000006, -0.34294677, 0.67499983, -6.113693)
+script = ExtResource("5_c01mt")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1290227930]
-transform = Transform3D(0.7071069, 0, -0.7071069, 0, 1, 0, 0.7071069, 0, 0.7071069, 4.7683716e-07, 0, 2.8284276)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VictoryArea" unique_id=1290227930]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 4.7683716e-07, 0, 2.8284276)
 shape = SubResource("BoxShape3D_rarhs")
 debug_color = Color(0.39588127, 0.61138725, 0, 1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=563295951]
-transform = Transform3D(3.535534, 0, -3.535534, 0, 1, 0, 3.535534, 0, 3.535534, 0.00780344, 0, 2.8282819)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VictoryArea" unique_id=563295951]
+transform = Transform3D(4.9999995, 0, 0, 0, 1, 0, 0, 0, 4.9999995, 0.007803917, 0, 2.8282819)
 mesh = SubResource("BoxMesh_vcsgt")
 
-[editable path="Foods"]
+[node name="Food" parent="." unique_id=271352365 instance=ExtResource("6_c01mt")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 7.450581e-09, 1.7652748, 0)
+
 [editable path="CuteBot"]

@@ -2,7 +2,9 @@ extends Node3D
 
 func check(body):
 	if body.is_in_group("dirty"):
-		print("You Dropped Food on the floor. You messy robot")
+		print(">OBJECTIVE FAILED. >REASON: FOOD DROPPED ON DIRTY SURFACE. >RETURN TO CHARGING DOCK")
+	elif body.name == "VictoryArea":
+		print(">OBJECTIVE COMPLETED. >RETURN TO CHARGING DOCK")
 
 
 
