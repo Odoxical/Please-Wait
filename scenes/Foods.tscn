@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://b0maeasvi2wsc"]
 
-[ext_resource type="Script" uid="uid://df2ab41r35af5" path="res://scenes/food.gd" id="1_mm33w"]
+[ext_resource type="Script" uid="uid://df2ab41r35af5" path="res://scripts/food.gd" id="1_mm33w"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wi5e7"]
 points = PackedVector3Array(0.6147264, 0.25, 0.29951543, 0.26773554, 0.25, 0.6223185, 0.6147264, -0.25, 0.29951543, 0.26773554, 0.25, -0.2932782, 0.26773554, -0.25, 0.6223185, -0.2993682, 0.25, 0.6202527, 0.26773554, -0.25, -0.2932782, -0.2993682, 0.25, -0.29525417, -0.2993682, -0.25, 0.6202527, -0.2993682, -0.25, -0.29525417)

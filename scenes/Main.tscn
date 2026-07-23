@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://diekpt4ps6pil"]
 
 [ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="3_vcsgt"]
-[ext_resource type="Script" uid="uid://cdj3fw1dgism2" path="res://scenes/Victory_Area.gd" id="5_c01mt"]
+[ext_resource type="Script" uid="uid://cdj3fw1dgism2" path="res://scripts/Victory_Area.gd" id="5_c01mt"]
 [ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="5_fos0i"]
+[ext_resource type="PackedScene" uid="uid://bbg0v5h3jpwww" path="res://Foods.tscn" id="5_nxtc6"]
 [ext_resource type="PackedScene" uid="uid://0a2xqdmnfwgj" path="res://cute_bot/cute_bot.tscn" id="5_vcsgt"]
-[ext_resource type="PackedScene" uid="uid://b8hgny6ttjh4c" path="res://foodCSGPlate.tscn" id="6_c01mt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7h64q"]
 size = Vector3(200.0456, 1, 190.62195)
@@ -43,7 +43,7 @@ max_lean = 2.0
 com_balance_bias = 0.4
 com_visual_lerp_speed = 3.0
 
-[node name="Body Convex Col8 " parent="CuteBot/Body2" parent_id_path=PackedInt32Array(1869795653, 318634261) index="1" unique_id=1941240132 groups=["dirty"]]
+[node name="Body Convex Col8 " parent="CuteBot/Body2" parent_id_path=PackedInt32Array(1869795653, 318634261) index="1" unique_id=1941240132 groups=["Self"]]
 
 [node name="VictoryArea" type="Area3D" parent="." unique_id=712089671]
 transform = Transform3D(0.25000006, 0, 0, 0, 0.25000006, 0, 0, 0, 0.25000006, -0.34294677, 0.67499983, -6.113693)
@@ -58,7 +58,7 @@ debug_color = Color(0.39588127, 0.61138725, 0, 1)
 transform = Transform3D(4.9999995, 0, 0, 0, 1, 0, 0, 0, 4.9999995, 0.007803917, 0, 2.8282819)
 mesh = SubResource("BoxMesh_vcsgt")
 
-[node name="Food" parent="." unique_id=271352365 instance=ExtResource("6_c01mt")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 7.450581e-09, 1.7652748, 0)
+[node name="Foods" parent="." unique_id=938991637 instance=ExtResource("5_nxtc6")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.021958232, 1.8149967, -0.01895541)
 
 [editable path="CuteBot"]

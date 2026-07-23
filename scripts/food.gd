@@ -8,9 +8,12 @@ func check(body):
 
 
 
-func _on_steak__body_entered(body: Node) -> void:
+
+func _on_apple_colisons__body_entered(body: Node) -> void:
 	print("colliding")
 	check(body)
 
-func _on_apple_colisons_body_entered(body: Node) -> void:
+
+func _on_steak_body_entered(body: Node) -> void:
+	print("colliding")
 	check(body)

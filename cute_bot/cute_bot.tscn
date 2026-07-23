@@ -89,8 +89,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_h6r5n")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5ngvx"]
-rough = true
-absorbent = true
+friction = 0.5
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u5ehh"]
 points = PackedVector3Array(0.06664848, 3.4603808, 1.6813211, 0.06664848, 4.3602924, 1.6813211, 8.166649, 3.4603808, 1.6813211, 0.06664848, 3.4603808, 2.5813212, 0.06664848, 4.3602924, 2.5813212, 8.166649, 4.3602924, 1.6813211, 8.166649, 3.4603808, 2.5813212, 8.166649, 4.3602924, 2.5813212)
