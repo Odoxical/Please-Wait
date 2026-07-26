@@ -46,7 +46,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tbsyi")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y5bn2"]
-friction = 0.1
+friction = 0.15
 rough = true
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vdf73"]
@@ -695,7 +695,7 @@ _data = {
 [node name="Steak And Apple" type="Node3D" parent="." unique_id=991742218]
 script = ExtResource("1_y5bn2")
 
-[node name="Apple Colisons " type="RigidBody3D" parent="Steak And Apple" unique_id=1137989734]
+[node name="Apple Colisons " type="RigidBody3D" parent="Steak And Apple" unique_id=1137989734 groups=["Food Item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6435148, 0.8875176, -0.13370968)
 collision_layer = 3
 collision_mask = 3
@@ -919,7 +919,7 @@ shape = SubResource("ConvexPolygonShape3D_1vygc")
 [node name="Plate" type="MeshInstance3D" parent="Steak And Apple/Plate Collisons" unique_id=1179824712]
 mesh = SubResource("ArrayMesh_rn8sm")
 
-[node name="Steak" type="RigidBody3D" parent="Steak And Apple" unique_id=1595323610]
+[node name="Steak" type="RigidBody3D" parent="Steak And Apple" unique_id=1595323610 groups=["Food Item"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8267604, 0.5942354, -0.08542768)
 collision_layer = 3
 collision_mask = 3

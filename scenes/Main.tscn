@@ -61,4 +61,6 @@ mesh = SubResource("BoxMesh_vcsgt")
 [node name="Foods" parent="." unique_id=938991637 instance=ExtResource("5_nxtc6")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.021958232, 1.8149967, -0.01895541)
 
+[connection signal="body_entered" from="VictoryArea" to="VictoryArea" method="_on_body_entered"]
+
 [editable path="CuteBot"]

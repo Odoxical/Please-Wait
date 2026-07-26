@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://drdhkprgk8kuf"]
+
+[ext_resource type="Script" uid="uid://b0vrhc2f71cag" path="res://scenes/victory_screen.gd" id="1_ujlt3"]
+
+[node name="Victory Screen" type="Control" unique_id=220349059]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ujlt3")
+
+[node name="VictoryTextHex" type="RichTextLabel" parent="." unique_id=252358774]
+layout_mode = 0
+offset_right = 574.0
+offset_bottom = 51.0
+
+[node name="VictoryTextReadable" type="RichTextLabel" parent="." unique_id=2070650289]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
