@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://s8ao7y8qxsb"]
+
+[ext_resource type="Script" uid="uid://bo336pe7jtnis" path="res://lose_screen.gd" id="1_73mov"]
+[ext_resource type="FontFile" uid="uid://myl3ens0qugj" path="res://Source_Code_Pro/static/SourceCodePro-SemiBold.ttf" id="2_lytqm"]
+[ext_resource type="FontFile" uid="uid://dv14kgdgqsy06" path="res://Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf" id="3_v2sw8"]
+[ext_resource type="Theme" uid="uid://cjh1wa87q5tfg" path="res://resources/Menu_Themes.tres" id="4_lytqm"]
+
+[node name="Lose_Screen" type="Control" unique_id=535357522]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_73mov")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=297834744]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-21, -17, 1540, -30, 1562, 953, -45, 990)
+
+[node name="LoseTextHex" type="RichTextLabel" parent="." unique_id=1773667562]
+layout_mode = 0
+offset_right = 1500.0
+offset_bottom = 129.0
+theme_override_colors/default_color = Color(0.98039216, 0.09019608, 0.20392157, 1)
+theme_override_fonts/normal_font = ExtResource("2_lytqm")
+theme_override_fonts/bold_font = ExtResource("3_v2sw8")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+text = "Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi pretium tellus duis convallis tempus leo eu aenean sed diam urna tempor pulvinar 
+"
+
+[node name="LoseTextReadable" type="RichTextLabel" parent="." unique_id=1373376496]
+layout_mode = 0
+offset_top = 129.0
+offset_right = 1500.0
+offset_bottom = 263.0
+theme = ExtResource("4_lytqm")
+text = "Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi pretium tellus duis convallis tempus leo eu aenean sed diam urna tempor pulvinar 
+"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=343081596]
+offset = Vector2(750, 450)
+
+[node name="Button" type="Button" parent="." unique_id=826258391]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 554.0
+offset_right = 607.0
+offset_bottom = 683.0
+theme = ExtResource("4_lytqm")
+text = "RETURN"
+
+[node name="Button2" type="Button" parent="." unique_id=1215393075]
+layout_mode = 0
+offset_left = 1049.0
+offset_top = 554.0
+offset_right = 1415.0
+offset_bottom = 683.0
+theme = ExtResource("4_lytqm")
+text = "SHUT DOWN"

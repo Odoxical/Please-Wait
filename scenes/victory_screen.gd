@@ -1,35 +1,29 @@
 extends Control
-
 @onready var label_old: RichTextLabel = $VictoryTextHex
 @onready var label_new: RichTextLabel = $VictoryTextReadable
+var hex_string = "3E4F424A45435449564520434F4D504C4554450A3E52455455524E20544F204348415247494E472053544154494F4E"
+var delay = 1.0
+var change_speed = 1.0
 
-var hex_string="3E4F424A45435449564520434F4D504C4554450A3E52455455524E20544F204348415247494E472053544154494F4E"
-
-var delay=3
-var change_speed=1.5
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	label_old.text=hex_string
-	label_new.text=(hex_string.hex_decode()).get_string_from_utf8()
-	
-	label_old.visible_characters=-1#Start with all charaters visible
-	label_new.visible_characters=0#Start with all charaters visible
+func _ready() -> void:
+	label_old.text = hex_string
+	label_new.text = hex_string.hex_decode().get_string_from_utf8()
+	label_old.visible_characters = -1
+	label_new.visible_characters = 0
 	start_text_transition()
 
-#func start_text_transition() -> void:
-	#var tween = create_tween()
-	#
-	## 1. Wait for 3 seconds before doing anything
-	#tween.tween_interval(delay_before_switch)
-	#
-	## 2. Erase the old text glyph-by-glyph (animate from full length down to 0)
-	#var old_length: int = label_old.text.length()
-	#label_old.visible_characters = old_length
-	#tween.tween_property(label_old, "visible_characters", 0, erase_duration)
-	#
-	## 3. Type out the new text glyph-by-glyph (animate from 0 up to full length)
-	## Note: Use parallel() if you want the typing to start at the exact same time the erasing starts.
-	## tween.parallel() 
-	#
-	#var new_length: int = label_new.text.length()
-	#tween.tween_property(label_new, "visible_characters", new_length, type_duration)
+func start_text_transition() -> void:
+	var tween = create_tween()
+	tween.tween_interval(delay)
+
+	# Erase old text left-to-right by shrinking from the front of the string
+	var old_length := hex_string.length()
+	tween.tween_method(_erase_old_text_step, 0, old_length, change_speed)
+
+	# Type new text left-to-right, in parallel with the erase
+	tween.parallel()
+	var new_length := label_new.text.length()
+	tween.tween_property(label_new, "visible_characters", new_length, change_speed)
+
+func _erase_old_text_step(erased_chars: float) -> void:
+	label_old.text = hex_string.substr(int(erased_chars))

@@ -1,18 +1,45 @@
 [gd_scene format=3 uid="uid://drdhkprgk8kuf"]
 
 [ext_resource type="Script" uid="uid://b0vrhc2f71cag" path="res://scenes/victory_screen.gd" id="1_ujlt3"]
+[ext_resource type="FontFile" uid="uid://myl3ens0qugj" path="res://Source_Code_Pro/static/SourceCodePro-SemiBold.ttf" id="2_pfcnd"]
+[ext_resource type="FontFile" uid="uid://dv14kgdgqsy06" path="res://Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf" id="3_rixwf"]
 
 [node name="Victory Screen" type="Control" unique_id=220349059]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ujlt3")
 
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=654394092]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-21, -17, 1540, -30, 1562, 953, -45, 990)
+
 [node name="VictoryTextHex" type="RichTextLabel" parent="." unique_id=252358774]
 layout_mode = 0
-offset_right = 574.0
-offset_bottom = 51.0
+offset_right = 1158.0
+offset_bottom = 93.0
+theme_override_colors/default_color = Color(0, 1, 0.25490198, 1)
+theme_override_fonts/normal_font = ExtResource("2_pfcnd")
+theme_override_fonts/bold_font = ExtResource("3_rixwf")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+text = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
 
 [node name="VictoryTextReadable" type="RichTextLabel" parent="." unique_id=2070650289]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 93.0
+offset_right = 1158.0
+offset_bottom = 191.0
+theme_override_colors/default_color = Color(0, 1, 0.25490198, 1)
+theme_override_fonts/normal_font = ExtResource("2_pfcnd")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+text = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1313758538]
+offset = Vector2(750, 450)
