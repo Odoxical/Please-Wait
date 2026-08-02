@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b0vrhc2f71cag" path="res://scenes/victory_screen.gd" id="1_ujlt3"]
 [ext_resource type="FontFile" uid="uid://myl3ens0qugj" path="res://Source_Code_Pro/static/SourceCodePro-SemiBold.ttf" id="2_pfcnd"]
 [ext_resource type="FontFile" uid="uid://dv14kgdgqsy06" path="res://Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf" id="3_rixwf"]
+[ext_resource type="Theme" uid="uid://cjh1wa87q5tfg" path="res://resources/Menu_Themes.tres" id="4_rixwf"]
 
 [node name="Victory Screen" type="Control" unique_id=220349059]
 layout_mode = 3
@@ -43,3 +44,24 @@ text = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet c
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1313758538]
 offset = Vector2(750, 450)
+
+[node name="Return" type="Button" parent="." unique_id=1397100550]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 554.0
+offset_right = 607.0
+offset_bottom = 683.0
+theme = ExtResource("4_rixwf")
+text = "RETURN"
+
+[node name="Quit" type="Button" parent="." unique_id=236802510]
+layout_mode = 0
+offset_left = 1049.0
+offset_top = 554.0
+offset_right = 1415.0
+offset_bottom = 683.0
+theme = ExtResource("4_rixwf")
+text = "SHUT DOWN"
+
+[connection signal="button_down" from="Return" to="." method="_on_return_button_down"]
+[connection signal="button_down" from="Quit" to="." method="_on_quit_button_down"]

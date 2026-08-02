@@ -45,7 +45,7 @@ text = "Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=343081596]
 offset = Vector2(750, 450)
 
-[node name="Button" type="Button" parent="." unique_id=826258391]
+[node name="Return" type="Button" parent="." unique_id=826258391]
 layout_mode = 0
 offset_left = 241.0
 offset_top = 554.0
@@ -54,7 +54,7 @@ offset_bottom = 683.0
 theme = ExtResource("4_lytqm")
 text = "RETURN"
 
-[node name="Button2" type="Button" parent="." unique_id=1215393075]
+[node name="Quit" type="Button" parent="." unique_id=1215393075]
 layout_mode = 0
 offset_left = 1049.0
 offset_top = 554.0
@@ -62,3 +62,7 @@ offset_right = 1415.0
 offset_bottom = 683.0
 theme = ExtResource("4_lytqm")
 text = "SHUT DOWN"
+
+[connection signal="button_down" from="Return" to="." method="_on_return_button_down"]
+[connection signal="button_down" from="Return" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="Quit" to="." method="_on_quit_button_down"]

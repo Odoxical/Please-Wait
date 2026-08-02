@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://4c42trnc8fok"
-path="res://.godot/imported/Counter.fbx-dd8dbe89653d4278a7a76015b40c955b.scn"
+uid="uid://b3e4jqmq53ose"
+path="res://.godot/imported/Counter.glb-62aa5dec8f1678b541f7584504057e25.scn"
 
 [deps]
 
-source_file="res://Models/Counter.fbx"
-dest_files=["res://.godot/imported/Counter.fbx-dd8dbe89653d4278a7a76015b40c955b.scn"]
+source_file="res://Models/Counter.glb"
+dest_files=["res://.godot/imported/Counter.glb-62aa5dec8f1678b541f7584504057e25.scn"]
 
 [params]
 
@@ -32,7 +32,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -40,7 +40,6 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-fbx/importer=0
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1
-fbx/naming_version=2
+gltf/naming_version=2
+gltf/embedded_image_handling=1
+gltf/texture_map_mode=1
