@@ -20,6 +20,12 @@ extends Node3D
 @onready var bl_leg = $BackLeftIKTarget
 @onready var br_leg = $BackRightIKTarget
 
+@export var pivot_turn_speed: float = 1.5 # radians/sec while pivoting ##
+
+var is_pivoting := false ##
+var pivot_leg: Node3D ## 
+var highlight_material: StandardMaterial3D ##
+
 var _biased_com := Vector3.ZERO
 var _visual_com := Vector3.ZERO
 
@@ -71,13 +77,58 @@ func _create_highlight():
 	mat.emission = Color(0.2, 1.0, 0.4)
 	mat.emission_energy_multiplier = 3.0
 	sphere.material = mat
+	highlight_material = mat##
 	highlight.mesh = sphere
 	highlight.top_level = true
 	add_child(highlight)
 
 func _select_leg(leg: Node3D):
+	is_pivoting = false##
+	pivot_leg = null##
 	selected_leg = leg
 	print("Selected leg: " + leg_names[leg])
+
+func _toggle_pivot(leg: Node3D):##
+	if is_pivoting && pivot_leg == leg:##
+		is_pivoting = false##
+		pivot_leg = null##
+		print("Pivot mode off")##
+		return##
+##
+	if !planted.get(leg, false):##
+		print("Can't pivot around " + leg_names[leg] + " — it's not on the ground")##
+		return##
+##
+	selected_leg = leg##
+	pivot_leg = leg##
+	is_pivoting = true##
+	print("Pivoting around: " + leg_names[leg])##
+
+func _handle_pivot(delta):##
+	if !pivot_leg:##
+		return##
+	var turn_input = float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A))##
+	if absf(turn_input) < 0.001:##
+		return##
+
+	var angle = turn_input * pivot_turn_speed * delta##
+	var pivot_point = pivot_leg.global_position##
+	var rot = Basis(Vector3.UP, angle)##
+
+	# Spin the body around the planted foot
+	global_position = pivot_point + rot * (global_position - pivot_point)##
+	global_transform.basis = (rot * global_transform.basis).orthonormalized()##
+
+	# Drag every other foot along the same rotation so they stay
+	# attached to the body instead of getting left behind
+	for leg in home_offsets:##
+		if leg == pivot_leg:##
+			continue##
+		var pos = pivot_point + rot * (leg.global_position - pivot_point)##
+		var floor_y = _ground_height(pos)##
+		if floor_y > -INF:##
+			pos.y = floor_y##
+		leg.global_position = pos##
 
 func _input(event):
 	if event is InputEventKey && event.pressed && !event.echo:
@@ -102,17 +153,17 @@ func _process(delta):
 		var plane1 = Plane(bl_leg.global_position, fl_leg.global_position, fr_leg.global_position)
 		var plane2 = Plane(fr_leg.global_position, br_leg.global_position, bl_leg.global_position)
 		var avg_normal = ((plane1.normal + plane2.normal) / 2).normalized()
-
+	
 		var target_basis = _basis_from_normal(avg_normal)
 		transform.basis = lerp(transform.basis, target_basis, move_speed * delta).orthonormalized()
-
+	
 		# Keep the body centered over the feet (plus any deliberate lean)
 		# so stepping legs forward pulls the body along with them
 		var centroid = (fl_leg.position + fr_leg.position + bl_leg.position + br_leg.position) / 4
 		var lean_world = transform.basis * Vector3(lean_offset.x, 0, lean_offset.y)
 		var horiz_target = Vector3(centroid.x + lean_world.x, position.y, centroid.z + lean_world.z)
 		position = lerp(position, horiz_target, body_recenter_speed * delta)
-
+	
 		# Only feet that are on the ground can support the body — raised feet
 		# must not push the body upward
 		var avg = Vector3.ZERO
@@ -126,12 +177,17 @@ func _process(delta):
 			var target_pos = avg + transform.basis.y * ground_offset
 			var distance = transform.basis.y.dot(target_pos - position)
 			position = lerp(position, position + transform.basis.y * distance, move_speed * delta)
-
+	
 	# Smoothly chase the biased COM for the indicator to read
 	_visual_com = _visual_com.lerp(_biased_com, com_visual_lerp_speed * delta)
-
+	
 	if selected_leg:
 		highlight.global_position = selected_leg.global_position
+	
+	if highlight_material:
+		var c = Color(1.0, 0.55, 0.1) if is_pivoting else Color(0.2, 1.0, 0.4)
+		highlight_material.albedo_color = c
+		highlight_material.emission = c
 
 func _physics_process(delta):
 	# CSG collision isn't ready on the very first frames; settle the
@@ -163,7 +219,10 @@ func _physics_process(delta):
 			_apply_tipping(pivot[0], pivot[1], delta)
 
 	_handle_lean(delta)
-	_handle_leg_input(delta)
+	if is_pivoting:
+		_handle_pivot(delta)
+	else:
+		_handle_leg_input(delta)
 
 	if snap_requested:
 		snap_requested = false
