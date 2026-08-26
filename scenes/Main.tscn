@@ -154,7 +154,7 @@ shape = SubResource("BoxShape3D_7h64q")
 environment = ExtResource("3_vcsgt")
 
 [node name="CuteBot" parent="." unique_id=1869795653 instance=ExtResource("5_vcsgt")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 max_leg_reach = 1.5
 max_lean = 2.0
 com_balance_bias = 0.4

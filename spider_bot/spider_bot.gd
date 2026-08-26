@@ -19,8 +19,8 @@ extends Node3D
 @onready var fr_leg = $FrontRightIKTarget
 @onready var bl_leg = $BackLeftIKTarget
 @onready var br_leg = $BackRightIKTarget
+var max_pivot_turn_speed=1
 
-@export var pivot_turn_speed: float = 1.5 # radians/sec while pivoting ##
 
 var is_pivoting := false ##
 var pivot_leg: Node3D ## 
@@ -66,25 +66,40 @@ func _ready():
 	_create_highlight()
 	_select_leg(fl_leg)
 
+var pivot_highlight: MeshInstance3D
+
 func _create_highlight():
-	highlight = MeshInstance3D.new()
-	var sphere = SphereMesh.new()
-	sphere.radius = 0.4
-	sphere.height = 0.8
-	var mat = StandardMaterial3D.new()
-	mat.albedo_color = Color(0.2, 1.0, 0.4)
-	mat.emission_enabled = true
-	mat.emission = Color(0.2, 1.0, 0.4)
-	mat.emission_energy_multiplier = 3.0
-	sphere.material = mat
+	highlight = MeshInstance3D.new()##
+	var sphere = SphereMesh.new()##
+	sphere.radius = 0.4##
+	sphere.height = 0.8##
+	var mat = StandardMaterial3D.new()##
+	mat.albedo_color = Color(0.2, 1.0, 0.4)##
+	mat.emission_enabled = true##
+	mat.emission = Color(0.2, 1.0, 0.4)##
+	mat.emission_energy_multiplier = 3.0##
+	sphere.material = mat##
+	highlight.mesh = sphere##
+	highlight.top_level = true##
+	add_child(highlight)##
 	highlight_material = mat##
-	highlight.mesh = sphere
-	highlight.top_level = true
-	add_child(highlight)
+
+	pivot_highlight = MeshInstance3D.new()
+	var psphere = SphereMesh.new()
+	psphere.radius = 0.4
+	psphere.height = 0.8
+	var pmat = StandardMaterial3D.new()
+	pmat.albedo_color = Color(1.0, 0.55, 0.1)
+	pmat.emission_enabled = true
+	pmat.emission = Color(1.0, 0.55, 0.1)
+	pmat.emission_energy_multiplier = 3.0
+	psphere.material = pmat
+	pivot_highlight.mesh = psphere
+	pivot_highlight.top_level = true
+	pivot_highlight.visible = false
+	add_child(pivot_highlight)
 
 func _select_leg(leg: Node3D):
-	is_pivoting = false##
-	pivot_leg = null##
 	selected_leg = leg
 	print("Selected leg: " + leg_names[leg])
 
@@ -94,58 +109,112 @@ func _toggle_pivot(leg: Node3D):##
 		pivot_leg = null##
 		print("Pivot mode off")##
 		return##
-##
+		
 	if !planted.get(leg, false):##
 		print("Can't pivot around " + leg_names[leg] + " — it's not on the ground")##
 		return##
-##
-	selected_leg = leg##
+		
 	pivot_leg = leg##
 	is_pivoting = true##
 	print("Pivoting around: " + leg_names[leg])##
 
-func _handle_pivot(delta):##
-	if !pivot_leg:##
-		return##
-	var turn_input = float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A))##
-	if absf(turn_input) < 0.001:##
-		return##
 
-	var angle = turn_input * pivot_turn_speed * delta##
-	var pivot_point = pivot_leg.global_position##
-	var rot = Basis(Vector3.UP, angle)##
 
-	# Spin the body around the planted foot
-	global_position = pivot_point + rot * (global_position - pivot_point)##
-	global_transform.basis = (rot * global_transform.basis).orthonormalized()##
-
-	# Drag every other foot along the same rotation so they stay
-	# attached to the body instead of getting left behind
-	for leg in home_offsets:##
-		if leg == pivot_leg:##
-			continue##
-		var pos = pivot_point + rot * (leg.global_position - pivot_point)##
-		var floor_y = _ground_height(pos)##
-		if floor_y > -INF:##
-			pos.y = floor_y##
-		leg.global_position = pos##
 
 func _input(event):
-	if event is InputEventKey && event.pressed && !event.echo:
-		match event.physical_keycode:
-			KEY_U:
-				_select_leg(fl_leg)
-			KEY_I:
-				_select_leg(fr_leg)
-			KEY_J:
-				_select_leg(bl_leg)
-			KEY_K:
-				_select_leg(br_leg)
-			KEY_TAB:
-				var i = leg_order.find(selected_leg)
-				_select_leg(leg_order[(i + 1) % leg_order.size()])
-			KEY_SPACE:
-				snap_requested = true
+	if event is InputEventKey && event.pressed && !event.echo:##
+		match event.physical_keycode:##
+			KEY_U:##
+				if event.ctrl_pressed: _toggle_pivot(fl_leg)##
+				else: _select_leg(fl_leg)##
+			KEY_I:##
+				if event.ctrl_pressed: _toggle_pivot(fr_leg)##
+				else: _select_leg(fr_leg)##
+			KEY_J:##
+				if event.ctrl_pressed: _toggle_pivot(bl_leg)##
+				else: _select_leg(bl_leg)##
+			KEY_K:##
+				if event.ctrl_pressed: _toggle_pivot(br_leg)##
+				else: _select_leg(br_leg)##
+			KEY_TAB:##
+				var i = leg_order.find(selected_leg)##
+				_select_leg(leg_order[(i + 1) % leg_order.size()])##
+			KEY_SPACE:##
+				snap_requested = true##
+
+func _handle_pivot_drive(delta):
+	if !pivot_leg || !selected_leg || selected_leg == pivot_leg:
+		return
+
+	var pivot_point = pivot_leg.global_position
+	var old_pos = selected_leg.global_position
+	var old_r = old_pos - pivot_point
+	old_r.y = 0
+
+	var forward_input = float(Input.is_key_pressed(KEY_W)) - float(Input.is_key_pressed(KEY_S))
+	var right_input = float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A))
+	var up_input = float(Input.is_key_pressed(KEY_E)) - float(Input.is_key_pressed(KEY_Q))
+
+	var cam = get_viewport().get_camera_3d()
+	var view_basis = cam.global_transform.basis if cam else transform.basis
+	var forward = -view_basis.z
+	forward.y = 0
+	forward = forward.normalized()
+	var right = view_basis.x
+	right.y = 0
+	right = right.normalized()
+
+	# Only a planted foot can push against the ground and turn the body;
+	# a raised foot just repositions, no rotation##
+	var driver_planted = planted.get(selected_leg, false)##
+	var motion = Vector3.ZERO##
+	if driver_planted:##
+		motion = forward * forward_input + right * right_input##
+	motion += Vector3.UP * up_input##
+	var new_pos = old_pos + motion * leg_move_speed * delta##
+
+	# Reach measured from the driver foot's own home offset, same as
+	# normal free-foot control — not from the pivot foot##
+	var anchor = global_transform * home_offsets[selected_leg]##
+	var offset = new_pos - anchor##
+	if offset.length() > max_leg_reach:##
+		new_pos = anchor + offset.normalized() * max_leg_reach##
+
+	var floor_y = _ground_height(new_pos)
+	if new_pos.y < floor_y:
+		new_pos.y = floor_y
+
+	selected_leg.global_position = new_pos
+
+	if !driver_planted:##
+		return##
+
+	# How far did the drag actually sweep the foot around the anchor?
+	var new_r = new_pos - pivot_point
+	new_r.y = 0
+	if old_r.length() < 0.01 || new_r.length() < 0.01:
+		return
+
+	var swept_angle = old_r.signed_angle_to(new_r, Vector3.UP)
+	var max_step = max_pivot_turn_speed * delta
+	swept_angle = clampf(swept_angle, -max_step, max_step)
+	if absf(swept_angle) < 0.000001:
+		return
+
+	var angle = -swept_angle
+	var rot = Basis(Vector3.UP, angle)
+
+	global_position = pivot_point + rot * (global_position - pivot_point)
+	global_transform.basis = (rot * global_transform.basis).orthonormalized()
+
+	for leg in home_offsets:
+		if leg == pivot_leg || leg == selected_leg:
+			continue
+		var pos = pivot_point + rot * (leg.global_position - pivot_point)
+		var fy = _ground_height(pos)
+		if fy > -INF:
+			pos.y = fy
+		leg.global_position = pos
 
 func _process(delta):
 	# While tipping over, the fall owns the body — don't fight it
@@ -154,8 +223,10 @@ func _process(delta):
 		var plane2 = Plane(fr_leg.global_position, br_leg.global_position, bl_leg.global_position)
 		var avg_normal = ((plane1.normal + plane2.normal) / 2).normalized()
 	
+		var current_rotation = transform.basis.orthonormalized()##
 		var target_basis = _basis_from_normal(avg_normal)
-		transform.basis = lerp(transform.basis, target_basis, move_speed * delta).orthonormalized()
+		var blended = lerp(current_rotation, target_basis, move_speed * delta).orthonormalized()##
+		transform.basis = blended.scaled(scale)##
 	
 		# Keep the body centered over the feet (plus any deliberate lean)
 		# so stepping legs forward pulls the body along with them
@@ -183,9 +254,13 @@ func _process(delta):
 	
 	if selected_leg:
 		highlight.global_position = selected_leg.global_position
+		
+	pivot_highlight.visible = is_pivoting##
+	if is_pivoting && pivot_leg:
+		pivot_highlight.global_position = pivot_leg.global_position
 	
 	if highlight_material:
-		var c = Color(1.0, 0.55, 0.1) if is_pivoting else Color(0.2, 1.0, 0.4)
+		var c = Color(0.2,0.4, 1) if is_pivoting else Color(0.2, 1.0, 0.4)
 		highlight_material.albedo_color = c
 		highlight_material.emission = c
 
@@ -205,7 +280,10 @@ func _physics_process(delta):
 		if planted[leg]:
 			support.append(leg)
 
-	if support.is_empty():
+	if is_pivoting:
+		is_tipping = false
+		fall_velocity = 0.0
+	elif support.is_empty():
 		is_tipping = false
 		_apply_gravity(delta)
 	else:
@@ -220,7 +298,7 @@ func _physics_process(delta):
 
 	_handle_lean(delta)
 	if is_pivoting:
-		_handle_pivot(delta)
+		_handle_pivot_drive(delta)
 	else:
 		_handle_leg_input(delta)
 
@@ -228,7 +306,7 @@ func _physics_process(delta):
 		snap_requested = false
 		if selected_leg:
 			selected_leg.global_position = _snap_to_ground(selected_leg.global_position)
-
+			
 func _handle_lean(delta):
 	# Arrow keys shift the body's centre of mass — an active balance tool
 	var lean_x = Input.get_axis("ui_left", "ui_right")
@@ -344,7 +422,6 @@ func _apply_gravity(delta):
 func _handle_leg_input(delta):
 	if !selected_leg:
 		return
-		return
 	else:
 		var forward_input = float(Input.is_key_pressed(KEY_W)) - float(Input.is_key_pressed(KEY_S))
 		var right_input = float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A))
@@ -400,6 +477,7 @@ func _basis_from_normal(normal: Vector3) -> Basis:
 	result.x = normal.cross(transform.basis.z)
 	result.y = normal
 	result.z = transform.basis.x.cross(normal)
+	return result.orthonormalized()##
 
 	result = result.orthonormalized()
 	result.x *= scale.x

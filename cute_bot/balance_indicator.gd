@@ -28,19 +28,19 @@ func _process(_delta):
 			feet.append(leg.global_position)
 	if feet.is_empty():
 		return
-
+		
 	var ground_y := 0.0
 	for f in feet:
 		ground_y += f.y
 	ground_y = ground_y / feet.size() + 0.05
-
+	
 	var com = bot._visual_com  # smoothly interpolated biased COM
 	var com2 := Vector2(com.x, com.z)
 	var margin = _stability_margin(feet, com2)
 	var t = clampf(margin, 0.0, 1.0)
 	var poly_col = Color(1, 0.25, 0.1, 0.3).lerp(Color(0.2, 1, 0.35, 0.3), t)
 	var com_col = Color(1, 0.25, 0.1, 0.95).lerp(Color(0.2, 1, 0.35, 0.95), t)
-
+	
 	im.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
 	if feet.size() >= 3:
 		var pts := PackedVector2Array()
@@ -60,7 +60,7 @@ func _process(_delta):
 		_tri(a - side, b + side, b - side, ground_y, poly_col)
 	else:
 		_circle(Vector2(feet[0].x, feet[0].z), 0.3, ground_y, poly_col)
-
+		
 	_circle(com2, 0.16, ground_y + 0.03, com_col)
 	im.surface_end()
 
