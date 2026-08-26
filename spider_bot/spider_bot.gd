@@ -19,7 +19,7 @@ extends Node3D
 @onready var fr_leg = $FrontRightIKTarget
 @onready var bl_leg = $BackLeftIKTarget
 @onready var br_leg = $BackRightIKTarget
-var max_pivot_turn_speed=1
+var max_pivot_turn_speed=0.5
 
 
 var is_pivoting := false ##
@@ -89,9 +89,9 @@ func _create_highlight():
 	psphere.radius = 0.4
 	psphere.height = 0.8
 	var pmat = StandardMaterial3D.new()
-	pmat.albedo_color = Color(1.0, 0.55, 0.1)
+	pmat.albedo_color = Color(0.2,0.4, 1)
 	pmat.emission_enabled = true
-	pmat.emission = Color(1.0, 0.55, 0.1)
+	pmat.emission = Color(0.2,0.4, 1)
 	pmat.emission_energy_multiplier = 3.0
 	psphere.material = pmat
 	pivot_highlight.mesh = psphere
@@ -145,16 +145,16 @@ func _input(event):
 func _handle_pivot_drive(delta):
 	if !pivot_leg || !selected_leg || selected_leg == pivot_leg:
 		return
-
+		
 	var pivot_point = pivot_leg.global_position
 	var old_pos = selected_leg.global_position
 	var old_r = old_pos - pivot_point
 	old_r.y = 0
-
+	
 	var forward_input = float(Input.is_key_pressed(KEY_W)) - float(Input.is_key_pressed(KEY_S))
 	var right_input = float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A))
 	var up_input = float(Input.is_key_pressed(KEY_E)) - float(Input.is_key_pressed(KEY_Q))
-
+	
 	var cam = get_viewport().get_camera_3d()
 	var view_basis = cam.global_transform.basis if cam else transform.basis
 	var forward = -view_basis.z
@@ -163,50 +163,47 @@ func _handle_pivot_drive(delta):
 	var right = view_basis.x
 	right.y = 0
 	right = right.normalized()
-
-	# Only a planted foot can push against the ground and turn the body;
-	# a raised foot just repositions, no rotation##
-	var driver_planted = planted.get(selected_leg, false)##
-	var motion = Vector3.ZERO##
-	if driver_planted:##
-		motion = forward * forward_input + right * right_input##
-	motion += Vector3.UP * up_input##
-	var new_pos = old_pos + motion * leg_move_speed * delta##
-
+	
+	# Foot can move freely in the air; only a planted foot pushes
+	# against the ground and turns the body##
+	var motion = forward * forward_input + right * right_input##
+	motion += Vector3.UP * up_input
+	var new_pos = old_pos + motion * leg_move_speed * delta
+	
 	# Reach measured from the driver foot's own home offset, same as
 	# normal free-foot control — not from the pivot foot##
 	var anchor = global_transform * home_offsets[selected_leg]##
 	var offset = new_pos - anchor##
 	if offset.length() > max_leg_reach:##
 		new_pos = anchor + offset.normalized() * max_leg_reach##
-
+		
 	var floor_y = _ground_height(new_pos)
 	if new_pos.y < floor_y:
 		new_pos.y = floor_y
-
+		
 	selected_leg.global_position = new_pos
-
+	var driver_planted = planted.get(selected_leg, false)##
 	if !driver_planted:##
 		return##
-
+		
 	# How far did the drag actually sweep the foot around the anchor?
 	var new_r = new_pos - pivot_point
 	new_r.y = 0
 	if old_r.length() < 0.01 || new_r.length() < 0.01:
 		return
-
+		
 	var swept_angle = old_r.signed_angle_to(new_r, Vector3.UP)
 	var max_step = max_pivot_turn_speed * delta
 	swept_angle = clampf(swept_angle, -max_step, max_step)
 	if absf(swept_angle) < 0.000001:
 		return
-
+		
 	var angle = -swept_angle
 	var rot = Basis(Vector3.UP, angle)
-
+	
 	global_position = pivot_point + rot * (global_position - pivot_point)
 	global_transform.basis = (rot * global_transform.basis).orthonormalized()
-
+	
 	for leg in home_offsets:
 		if leg == pivot_leg || leg == selected_leg:
 			continue
@@ -260,7 +257,7 @@ func _process(delta):
 		pivot_highlight.global_position = pivot_leg.global_position
 	
 	if highlight_material:
-		var c = Color(0.2,0.4, 1) if is_pivoting else Color(0.2, 1.0, 0.4)
+		var c = Color(1.0, 0.55, 0.1) if is_pivoting else Color(0.2, 1.0, 0.4)
 		highlight_material.albedo_color = c
 		highlight_material.emission = c
 
@@ -272,18 +269,21 @@ func _physics_process(delta):
 		for leg in home_offsets:
 			leg.global_position = _snap_to_ground(global_transform * home_offsets[leg])
 		return
-
+		
 	_update_planted()
-
+	
 	var support: Array = []
 	for leg in home_offsets:
 		if planted[leg]:
 			support.append(leg)
-
+			
+	_update_biased_com(support)##
+	
 	if is_pivoting:
 		is_tipping = false
 		fall_velocity = 0.0
 	elif support.is_empty():
+		
 		is_tipping = false
 		_apply_gravity(delta)
 	else:
@@ -322,19 +322,19 @@ func _update_planted():
 # Returns [pivot_point, pivot_axis] to tip around, or [] if the body is
 # stable: stable means the centre of mass sits over the support polygon
 # formed by the planted feet
+
+func _update_biased_com(support: Array) -> void:##
+	var com = global_position##
+	for leg in home_offsets:##
+		if !support.has(leg):##
+			var away = com - leg.global_position##
+			away.y = 0##
+			if away.length() > 0.001:##
+				com += away.normalized() * com_balance_bias##
+	_biased_com = com##
+
 func _find_tip_pivot(support: Array) -> Array:
-	var com = global_position
-	# Pretend the centre of gravity sits a bit further from any leg
-	# that's currently lifted, shifting it toward the remaining support
-	# feet. This stops a single leg lifting for a step from immediately
-	# pushing the COM outside the (now smaller) support polygon.
-	for leg in home_offsets:
-		if !support.has(leg):
-			var away = com - leg.global_position
-			away.y = 0
-			if away.length() > 0.001:
-				com += away.normalized() * com_balance_bias
-	_biased_com = com   # always capture final value for the visual
+	var com = _biased_com##
 
 	if support.size() == 1:
 		# Single foot: pivot about it, falling away in the direction of the body
@@ -394,16 +394,6 @@ func _apply_tipping(pivot_point: Vector3, axis: Vector3, delta):
 	var rot = Basis(axis, angle)
 	global_position = pivot_point + rot * (global_position - pivot_point)
 	global_transform.basis = (rot * global_transform.basis).orthonormalized()
-
-	# Raised feet swing with the body; whichever touches down first
-	# becomes the new support and can stop the fall
-	for leg in home_offsets:
-		if !planted.get(leg, false):
-			var pos = pivot_point + rot * (leg.global_position - pivot_point)
-			var floor_y = _ground_height(pos)
-			if pos.y < floor_y:
-				pos.y = floor_y
-			leg.global_position = pos
 
 func _apply_gravity(delta):
 	# No feet on the ground: the body falls, carrying the raised feet
