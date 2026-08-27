@@ -25,6 +25,7 @@ var max_pivot_turn_speed=0.5
 var is_pivoting := false ##
 var pivot_leg: Node3D ## 
 var highlight_material: StandardMaterial3D ##
+var pivot_highlight_material: StandardMaterial3D##
 
 var _biased_com := Vector3.ZERO
 var _visual_com := Vector3.ZERO
@@ -95,6 +96,7 @@ func _create_highlight():
 	pmat.emission_energy_multiplier = 3.0
 	psphere.material = pmat
 	pivot_highlight.mesh = psphere
+	pivot_highlight_material = pmat##
 	pivot_highlight.top_level = true
 	pivot_highlight.visible = false
 	add_child(pivot_highlight)
@@ -279,10 +281,7 @@ func _physics_process(delta):
 			
 	_update_biased_com(support)##
 	
-	if is_pivoting:
-		is_tipping = false
-		fall_velocity = 0.0
-	elif support.is_empty():
+	if support.is_empty():
 		
 		is_tipping = false
 		_apply_gravity(delta)

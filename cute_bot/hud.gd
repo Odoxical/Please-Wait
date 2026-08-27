@@ -37,12 +37,22 @@ func _draw():
 		var leg = cell[0]
 		var rect = Rect2(origin + Vector2(cell[1].x * (box.x + gap), cell[1].y * (box.y + gap)), box)
 		var is_planted = bot.planted.get(leg, false)
-		var fill = Color(0.3, 0.34, 0.4, 0.9) if is_planted else Color(0.18, 0.2, 0.24, 0.45)
+		var is_pivot_leg = bot.is_pivoting && bot.pivot_leg == leg##
+		var fill = Color("purple")
+		if is_planted: 
+			if is_pivot_leg:##
+				fill = Color(0.6, 0.6, 0.4, 0.9)
+			else:
+				fill = Color(0.3, 0.34, 0.4, 0.9) 
+		else:
+			fill = Color(0.18, 0.2, 0.24, 0.45)
 		draw_rect(rect, fill)
-		if leg == bot.selected_leg:
-			draw_rect(rect, Color(0.2, 1.0, 0.4), false, 3.0)
-		var label_col = Color(0, 1, 1, 0.9) if leg == bot.selected_leg else Color(1, 1, 1, 0.55)
+		if is_pivot_leg:##
+			draw_rect(rect, bot.pivot_highlight_material.albedo_color, false, 3.0)##
+		elif leg == bot.selected_leg:##
+			draw_rect(rect, bot.highlight_material.albedo_color, false, 3.0)##
+		var label_col = Color(1, 1, 1, 0.9) if (leg == bot.selected_leg || is_pivot_leg) else Color(1, 1, 1, 0.55)##
 		draw_string(font, rect.position + Vector2(16, 28), cell[2], HORIZONTAL_ALIGNMENT_LEFT, -1, 16, label_col)
-
+		
 	if bot.is_tipping:
 		draw_string(font, Vector2(size.x / 2 - 64, 64), "TIPPING!", HORIZONTAL_ALIGNMENT_LEFT, -1, 28, Color(1, 0.25, 0.15))
