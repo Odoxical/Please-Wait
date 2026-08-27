@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://bl0s2wn12ew52"]
+
+[ext_resource type="Theme" uid="uid://cjh1wa87q5tfg" path="res://resources/Menu_Themes.tres" id="1_1cuwq"]
+[ext_resource type="Script" uid="uid://cf8m75pu3xeb7" path="res://Button_animation.gd" id="2_30a6j"]
+
+[node name="Start Screen" type="Node2D" unique_id=327739060]
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=176963153]
+color = Color(0, 0.13333334, 0.2509804, 1)
+polygon = PackedVector2Array(-21, -17, 1540, -30, 1562, 953, -45, 990)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=366046055]
+offset_right = 1505.0
+offset_bottom = 323.0
+theme = ExtResource("1_1cuwq")
+theme_override_font_sizes/normal_font_size = 64
+text = "Task Selection"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1629860591]
+offset_left = 19.0
+offset_top = 323.0
+offset_right = 1496.0
+offset_bottom = 892.0
+columns = 2
+
+[node name="Start" type="Button" parent="GridContainer" unique_id=1367661031]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_1cuwq")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Basic Movement"
+script = ExtResource("2_30a6j")
+
+[node name="Start2" type="Button" parent="GridContainer" unique_id=1471841244]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_1cuwq")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Balancing Food"
+script = ExtResource("2_30a6j")
+
+[node name="Start3" type="Button" parent="GridContainer" unique_id=1999880691]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_1cuwq")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Corners"
+script = ExtResource("2_30a6j")
+
+[node name="Start4" type="Button" parent="GridContainer" unique_id=1704672352]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_1cuwq")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Wrong Way"
+script = ExtResource("2_30a6j")
+
+[node name="Start5" type="Button" parent="GridContainer" unique_id=505726910]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_1cuwq")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Final Test"
+script = ExtResource("2_30a6j")
+
+[node name="Start6" type="Button" parent="GridContainer" unique_id=2066376563]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_1cuwq")
+theme_override_colors/font_color = Color(0.8901961, 0.06666667, 0.21568628, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Leave"
+script = ExtResource("2_30a6j")

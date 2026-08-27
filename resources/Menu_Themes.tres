@@ -10,6 +10,8 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2jwc"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_46l3f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h5iho"]
@@ -27,7 +29,9 @@ default_font_size = 32
 /colors/Red = Color(0.98039216, 0.09019608, 0.20392157, 1)
 /styles/Buttons = SubResource("StyleBoxFlat_vd6xr")
 Button/colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+Button/colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
 Button/fonts/font = ExtResource("1_mx7xd")
+Button/styles/disabled = SubResource("StyleBoxEmpty_r2jwc")
 Button/styles/focus = SubResource("StyleBoxEmpty_46l3f")
 Button/styles/hover = SubResource("StyleBoxEmpty_h5iho")
 Button/styles/normal = SubResource("StyleBoxFlat_nufo5")

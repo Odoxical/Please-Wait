@@ -34,3 +34,9 @@ func _on_return_button_down() -> void:
 
 func _on_quit_button_down() -> void:
 	get_tree().quit()
+
+func _on_to_level_select_button_down() -> void:
+	get_tree().change_scene_to_file("res://scenes/Level Select.tscn")
+
+func _on_to_main_menu_button_down() -> void:
+	get_tree().change_scene_to_file("res://scenes/start_screen.tscn")

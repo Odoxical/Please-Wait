@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="5_fos0i"]
 [ext_resource type="PackedScene" uid="uid://bbg0v5h3jpwww" path="res://Foods.tscn" id="5_nxtc6"]
 [ext_resource type="PackedScene" uid="uid://0a2xqdmnfwgj" path="res://cute_bot/cute_bot.tscn" id="5_vcsgt"]
+[ext_resource type="Texture2D" uid="uid://d0lj5xkqpt40c" path="res://resources/Wall.png" id="6_c01mt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7h64q"]
 size = Vector3(200.0456, 1, 190.62195)
@@ -135,6 +136,22 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vsurf")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vcsgt"]
+albedo_texture = ExtResource("6_c01mt")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_offset = Vector3(0, -0.501, 0)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_vcsgt")
+size = Vector3(1, 10, 30)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c01mt"]
+points = PackedVector3Array(-0.5, -5, -15, 0.5, -5, -15, -0.5, -5, 14.999998, -0.5, 5, -15, 0.5, 5, -15, 0.5, -5, 14.999998, -0.5, 5, 14.999998, 0.5, 5, 14.999998)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nxtc6"]
+points = PackedVector3Array(-0.5, -5, -15, 0.5, -5, -15, -0.5, -5, 14.999998, -0.5, 5, -15, 0.5, 5, -15, 0.5, -5, 14.999998, -0.5, 5, 14.999998, 0.5, 5, 14.999998)
+
 [node name="Node3D" type="Node3D" unique_id=1018644971]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=52246290]
@@ -167,12 +184,12 @@ transform = Transform3D(0.25000006, 0, 0, 0, 0.25000006, 0, 0, 0, 0.25000006, -0
 script = ExtResource("5_c01mt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="VictoryArea" unique_id=1290227930]
-transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 2.500001, 0, 0.32842636)
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 2.500001, 0, -11.671572)
 shape = SubResource("BoxShape3D_rarhs")
 debug_color = Color(0.39588127, 0.61138725, 0, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="VictoryArea" unique_id=563295951]
-transform = Transform3D(4.999999, 0, 0, 0, 1, 0, 0, 0, 4.999999, 2.5078034, 0, 0.3282833)
+transform = Transform3D(4.999999, 0, 0, 0, 1, 0, 0, 0, 4.999999, 2.5078034, 0, -11.671713)
 mesh = SubResource("BoxMesh_vcsgt")
 
 [node name="Foods" parent="." unique_id=938991637 instance=ExtResource("5_nxtc6")]
@@ -239,6 +256,30 @@ shape = SubResource("ConcavePolygonShape3D_7gtxb")
 
 [node name="Handles" type="MeshInstance3D" parent="Counters/Counter5" unique_id=681857755]
 mesh = SubResource("ArrayMesh_ngcup")
+
+[node name="Walls" type="Node3D" parent="." unique_id=220871963]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls" unique_id=1508510855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4, -7.5)
+layers = 3
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Walls/MeshInstance3D" unique_id=142726227]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Walls/MeshInstance3D/StaticBody3D" unique_id=807723157]
+shape = SubResource("ConvexPolygonShape3D_c01mt")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Walls" unique_id=737460147]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 4, -7.5)
+layers = 3
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Walls/MeshInstance3D2" unique_id=1231239868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -4, 7.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/MeshInstance3D2/StaticBody3D" unique_id=499010656]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 4, -7.5)
+shape = SubResource("ConvexPolygonShape3D_nxtc6")
 
 [connection signal="body_entered" from="VictoryArea" to="VictoryArea" method="_on_body_entered"]
 

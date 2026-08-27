@@ -8,6 +8,7 @@ extends Node3D
 @export var plant_threshold: float = 0.3
 @export var body_recenter_speed: float = 3.0
 @export var tip_acceleration: float = 6.0
+@export var max_step_height: float = 0.3 # ground higher than this above the foot counts as a wall##
 # Rest position of a foot in body-local space; x/z are mirrored per leg
 @export var home_offset := Vector3(3.59, -2.11, 3.55)
 @export var lean_speed: float = 2.0
@@ -171,10 +172,10 @@ func _handle_pivot_drive(delta):
 	var motion = forward * forward_input + right * right_input##
 	motion += Vector3.UP * up_input
 	var new_pos = old_pos + motion * leg_move_speed * delta
-	
-	# Reach measured from the driver foot's own home offset, same as
-	# normal free-foot control — not from the pivot foot##
-	var anchor = global_transform * home_offsets[selected_leg]##
+	new_pos = _clip_wall_motion(old_pos, new_pos)##
+
+	# Reach measured from the driver foot's own home offset...
+	var anchor = global_transform * home_offsets[selected_leg]
 	var offset = new_pos - anchor##
 	if offset.length() > max_leg_reach:##
 		new_pos = anchor + offset.normalized() * max_leg_reach##
@@ -209,7 +210,9 @@ func _handle_pivot_drive(delta):
 	for leg in home_offsets:
 		if leg == pivot_leg || leg == selected_leg:
 			continue
+		var old_leg_pos = leg.global_position##
 		var pos = pivot_point + rot * (leg.global_position - pivot_point)
+		pos = _clip_wall_motion(old_leg_pos, pos)##
 		var fy = _ground_height(pos)
 		if fy > -INF:
 			pos.y = fy
@@ -389,10 +392,20 @@ func _apply_tipping(pivot_point: Vector3, axis: Vector3, delta):
 	var angle = tip_velocity * delta
 	if absf(angle) < 0.000001:
 		return
-
+	
 	var rot = Basis(axis, angle)
 	global_position = pivot_point + rot * (global_position - pivot_point)
 	global_transform.basis = (rot * global_transform.basis).orthonormalized()
+	
+	for leg in home_offsets:
+		if !planted.get(leg, false):
+			var old_leg_pos = leg.global_position##
+			var pos = pivot_point + rot * (leg.global_position - pivot_point)
+			pos = _clip_wall_motion(old_leg_pos, pos)##
+			var floor_y = _ground_height(pos)
+			if pos.y < floor_y:
+				pos.y = floor_y
+			leg.global_position = pos
 
 func _apply_gravity(delta):
 	# No feet on the ground: the body falls, carrying the raised feet
@@ -407,7 +420,7 @@ func _apply_gravity(delta):
 		if pos.y < floor_y:
 			pos.y = floor_y
 		leg.global_position = pos
-
+		
 func _handle_leg_input(delta):
 	if !selected_leg:
 		return
@@ -431,6 +444,7 @@ func _handle_leg_input(delta):
 
 		var motion = forward * forward_input + right * right_input + Vector3.UP * up_input
 		var new_pos = selected_leg.global_position + motion * leg_move_speed * delta
+		new_pos = _clip_wall_motion(selected_leg.global_position, new_pos)##
 
 		# Keep the foot within reach of its rest position on the body
 		var anchor = global_transform * home_offsets[selected_leg]
@@ -444,7 +458,29 @@ func _handle_leg_input(delta):
 			new_pos.y = floor_y
 
 		selected_leg.global_position = new_pos
-	
+
+
+func _clip_wall_motion(old_pos: Vector3, new_pos: Vector3) -> Vector3:
+	var horiz_delta = new_pos - old_pos##
+	horiz_delta.y = 0##
+	if horiz_delta.length() < 0.0001:##
+		return new_pos##
+
+	# Anchor the probe height to the actual ground under the foot's
+	# current (frozen-while-blocked) x/z — not the foot's own altitude,
+	# which keeps climbing while blocked and eventually rises above
+	# the wall regardless of max_step_height.##
+	var ground_at_old = _ground_height(old_pos)##
+	var probe_y = (ground_at_old if ground_at_old > -INF else old_pos.y) + max_step_height##
+	var from = Vector3(old_pos.x, probe_y, old_pos.z)##
+	var to = Vector3(new_pos.x, probe_y, new_pos.z)##
+	var space = get_world_3d().direct_space_state##
+	var query = PhysicsRayQueryParameters3D.create(from, to)##
+	query.collision_mask = 1##
+	var hit = space.intersect_ray(query)##
+	if hit:##
+		return Vector3(old_pos.x, new_pos.y, old_pos.z)##
+	return new_pos##
 
 func _ground_height(pos: Vector3) -> float:
 	var space = get_world_3d().direct_space_state

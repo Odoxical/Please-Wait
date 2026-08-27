@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" uid="uid://myl3ens0qugj" path="res://Source_Code_Pro/static/SourceCodePro-SemiBold.ttf" id="2_pfcnd"]
 [ext_resource type="FontFile" uid="uid://dv14kgdgqsy06" path="res://Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf" id="3_rixwf"]
 [ext_resource type="Theme" uid="uid://cjh1wa87q5tfg" path="res://resources/Menu_Themes.tres" id="4_rixwf"]
+[ext_resource type="Script" uid="uid://cf8m75pu3xeb7" path="res://Button_animation.gd" id="5_ll51u"]
 
 [node name="Victory Screen" type="Control" unique_id=220349059]
 layout_mode = 3
@@ -11,7 +12,7 @@ anchors_preset = 0
 script = ExtResource("1_ujlt3")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=654394092]
-color = Color(0, 0, 0, 1)
+color = Color(0, 0.13333334, 0.2509804, 1)
 polygon = PackedVector2Array(-21, -17, 1540, -30, 1562, 953, -45, 990)
 
 [node name="VictoryTextHex" type="RichTextLabel" parent="." unique_id=252358774]
@@ -45,23 +46,49 @@ text = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet c
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1313758538]
 offset = Vector2(750, 450)
 
-[node name="Return" type="Button" parent="." unique_id=1397100550]
+[node name="Return" type="Button" parent="." unique_id=2142373502]
 layout_mode = 0
-offset_left = 241.0
-offset_top = 554.0
-offset_right = 607.0
-offset_bottom = 683.0
+offset_left = 150.0
+offset_top = 429.0
+offset_right = 516.0
+offset_bottom = 558.0
 theme = ExtResource("4_rixwf")
-text = "RETURN"
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+text = ">RETRY"
+script = ExtResource("5_ll51u")
 
-[node name="Quit" type="Button" parent="." unique_id=236802510]
+[node name="Quit" type="Button" parent="." unique_id=293286129]
 layout_mode = 0
-offset_left = 1049.0
-offset_top = 554.0
-offset_right = 1415.0
-offset_bottom = 683.0
+offset_left = 984.0
+offset_top = 429.0
+offset_right = 1350.0
+offset_bottom = 558.0
 theme = ExtResource("4_rixwf")
-text = "SHUT DOWN"
+text = ">SHUT DOWN"
+script = ExtResource("5_ll51u")
+
+[node name="To Level Select" type="Button" parent="." unique_id=1533580178]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 629.0
+offset_right = 516.0
+offset_bottom = 758.0
+theme = ExtResource("4_rixwf")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+text = ">TRY ANOTHER"
+script = ExtResource("5_ll51u")
+
+[node name="To Main Menu" type="Button" parent="." unique_id=1620100667]
+layout_mode = 0
+offset_left = 984.0
+offset_top = 629.0
+offset_right = 1350.0
+offset_bottom = 758.0
+theme = ExtResource("4_rixwf")
+text = ">RETURN"
+script = ExtResource("5_ll51u")
 
 [connection signal="button_down" from="Return" to="." method="_on_return_button_down"]
 [connection signal="button_down" from="Quit" to="." method="_on_quit_button_down"]
+[connection signal="button_down" from="To Level Select" to="." method="_on_to_level_select_button_down"]
+[connection signal="button_down" from="To Main Menu" to="." method="_on_to_main_menu_button_down"]

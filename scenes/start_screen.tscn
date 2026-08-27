@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://bocb3w8ip250b"]
+
+[ext_resource type="Script" uid="uid://c6a7gqqx0b1h2" path="res://scenes/Start_screen.gd" id="1_he1sj"]
+[ext_resource type="Theme" uid="uid://cjh1wa87q5tfg" path="res://resources/Menu_Themes.tres" id="1_o7i0r"]
+[ext_resource type="Script" uid="uid://cf8m75pu3xeb7" path="res://Button_animation.gd" id="2_he1sj"]
+
+[node name="Start Screen" type="Control" unique_id=2110386537]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_he1sj")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=176963153]
+color = Color(0, 0.13333334, 0.2509804, 1)
+polygon = PackedVector2Array(-21, -17, 1540, -30, 1562, 953, -45, 990)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=366046055]
+layout_mode = 0
+offset_right = 1505.0
+offset_bottom = 323.0
+theme = ExtResource("1_o7i0r")
+theme_override_font_sizes/normal_font_size = 64
+text = "Please Wait"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1629860591]
+layout_mode = 0
+offset_top = 323.0
+offset_right = 1496.0
+offset_bottom = 761.0
+columns = 2
+
+[node name="Start" type="Button" parent="GridContainer" unique_id=1367661031]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_o7i0r")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Deploy"
+script = ExtResource("2_he1sj")
+
+[node name="L0r3" type="Button" parent="GridContainer" unique_id=1471841244]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_o7i0r")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Compute discovered engineer notes"
+script = ExtResource("2_he1sj")
+
+[node name="Leave" type="Button" parent="GridContainer" unique_id=1999880691]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_o7i0r")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Shut Down"
+script = ExtResource("2_he1sj")
+
+[node name="Settings" type="Button" parent="GridContainer" unique_id=1704672352]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_o7i0r")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Adjust Settings"
+script = ExtResource("2_he1sj")
+
+[connection signal="button_down" from="GridContainer/Start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="GridContainer/L0r3" to="." method="_on_l_0r_3_button_down"]
+[connection signal="button_down" from="GridContainer/Leave" to="." method="_on_leave_button_down"]
+[connection signal="button_down" from="GridContainer/Settings" to="." method="_on_settings_button_down"]
