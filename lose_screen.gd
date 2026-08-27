@@ -30,7 +30,7 @@ func _erase_old_text_step(erased_chars: float) -> void:
 	label_old.text = hex_string.substr(int(erased_chars))
 
 func _on_return_button_down() -> void:
-	get_tree().change_scene_to_file("res://scenes/Main.tscn")
+	get_tree().change_scene_to_file(Globals.current_level)
 
 func _on_quit_button_down() -> void:
 	get_tree().quit()

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Please Wait"
-run/main_scene="uid://diekpt4ps6pil"
+run/main_scene="uid://bocb3w8ip250b"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

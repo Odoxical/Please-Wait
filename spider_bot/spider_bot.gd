@@ -8,7 +8,8 @@ extends Node3D
 @export var plant_threshold: float = 0.3
 @export var body_recenter_speed: float = 3.0
 @export var tip_acceleration: float = 6.0
-@export var max_step_height: float = 0.3 # ground higher than this above the foot counts as a wall##
+@export var max_step_height: float = 3 #ground higher than this above the foot counts as a wall##
+@export var reach_under_body_bonus: float = 1.0 # extra reach allowed only when stepping in toward the body's centre, so a foot can tuck under for climbing without loosening reach anywhere else##
 # Rest position of a foot in body-local space; x/z are mirrored per leg
 @export var home_offset := Vector3(3.59, -2.11, 3.55)
 @export var lean_speed: float = 2.0
@@ -44,7 +45,10 @@ var leg_names := {}
 var snap_requested := false
 var lean_offset := Vector2.ZERO
 
+var pivot_highlight: MeshInstance3D
+
 func _ready():
+	Globals.current_level=get_tree().current_scene.scene_file_path
 	home_offsets = {
 		fl_leg: Vector3(-home_offset.x, home_offset.y, -home_offset.z),
 		fr_leg: Vector3(home_offset.x, home_offset.y, -home_offset.z),
@@ -53,7 +57,7 @@ func _ready():
 	}
 	for leg in home_offsets:
 		leg.global_position = global_transform * home_offsets[leg]
-
+		
 	leg_order = [fl_leg, fr_leg, br_leg, bl_leg]
 	leg_names = {
 		fl_leg: "Front Left",
@@ -61,14 +65,12 @@ func _ready():
 		bl_leg: "Back Left",
 		br_leg: "Back Right",
 	}
-
+	
 	_biased_com = global_position
 	_visual_com = global_position
-
+	
 	_create_highlight()
 	_select_leg(fl_leg)
-
-var pivot_highlight: MeshInstance3D
 
 func _create_highlight():
 	highlight = MeshInstance3D.new()##
@@ -145,6 +147,21 @@ func _input(event):
 			KEY_SPACE:##
 				snap_requested = true##
 
+func _clamp_leg_reach(new_pos: Vector3, anchor: Vector3) -> Vector3:##
+	var offset = new_pos - anchor##
+	var horiz_offset = Vector2(offset.x, offset.z)##
+	var to_center = Vector2(global_position.x, global_position.z) - Vector2(anchor.x, anchor.z)##
+	var moving_inward = false##
+	if horiz_offset.length() > 0.001 && to_center.length() > 0.001:##
+		moving_inward = horiz_offset.normalized().dot(to_center.normalized()) > 0.0##
+	var reach = max_leg_reach##
+	if moving_inward:##
+		reach += reach_under_body_bonus##
+	if offset.length() > reach:##
+		offset = offset.normalized() * reach##
+		new_pos = anchor + offset##
+	return new_pos##
+
 func _handle_pivot_drive(delta):
 	if !pivot_leg || !selected_leg || selected_leg == pivot_leg:
 		return
@@ -176,6 +193,7 @@ func _handle_pivot_drive(delta):
 
 	# Reach measured from the driver foot's own home offset...
 	var anchor = global_transform * home_offsets[selected_leg]
+	new_pos = _clamp_leg_reach(new_pos, anchor)##
 	var offset = new_pos - anchor##
 	if offset.length() > max_leg_reach:##
 		new_pos = anchor + offset.normalized() * max_leg_reach##
@@ -217,6 +235,7 @@ func _handle_pivot_drive(delta):
 		if fy > -INF:
 			pos.y = fy
 		leg.global_position = pos
+
 
 func _process(delta):
 	# While tipping over, the fall owns the body — don't fight it
@@ -265,6 +284,8 @@ func _process(delta):
 		var c = Color(1.0, 0.55, 0.1) if is_pivoting else Color(0.2, 1.0, 0.4)
 		highlight_material.albedo_color = c
 		highlight_material.emission = c
+	
+
 
 func _physics_process(delta):
 	# CSG collision isn't ready on the very first frames; settle the
@@ -448,6 +469,7 @@ func _handle_leg_input(delta):
 
 		# Keep the foot within reach of its rest position on the body
 		var anchor = global_transform * home_offsets[selected_leg]
+		new_pos = _clamp_leg_reach(new_pos, anchor)##
 		var offset = new_pos - anchor
 		if offset.length() > max_leg_reach:
 			new_pos = anchor + offset.normalized() * max_leg_reach
@@ -484,7 +506,7 @@ func _clip_wall_motion(old_pos: Vector3, new_pos: Vector3) -> Vector3:
 
 func _ground_height(pos: Vector3) -> float:
 	var space = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(pos + Vector3.UP * 10.0, pos + Vector3.DOWN * 10.0)
+	var query = PhysicsRayQueryParameters3D.create(pos + Vector3.UP * 2.0, pos + Vector3.DOWN * 10.0)
 	query.collision_mask = 1
 	var hit = space.intersect_ray(query)
 	if hit:

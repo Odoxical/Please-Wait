@@ -31,7 +31,7 @@ func _erase_old_text_step(erased_chars: float) -> void:
 
 
 func _on_return_button_down() -> void:
-	get_tree().change_scene_to_file("res://scenes/Main.tscn")
+	get_tree().change_scene_to_file(Globals.current_level)
 
 
 func _on_quit_button_down() -> void:

@@ -1,14 +1,18 @@
 [gd_scene format=4 uid="uid://diekpt4ps6pil"]
 
-[ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="3_vcsgt"]
-[ext_resource type="Script" uid="uid://cdj3fw1dgism2" path="res://scripts/Victory_Area.gd" id="5_c01mt"]
-[ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="5_fos0i"]
-[ext_resource type="PackedScene" uid="uid://bbg0v5h3jpwww" path="res://Foods.tscn" id="5_nxtc6"]
-[ext_resource type="PackedScene" uid="uid://0a2xqdmnfwgj" path="res://cute_bot/cute_bot.tscn" id="5_vcsgt"]
-[ext_resource type="Texture2D" uid="uid://d0lj5xkqpt40c" path="res://resources/Wall.png" id="6_c01mt"]
+[ext_resource type="PackedScene" uid="uid://x4gwoaw0iv4p" path="res://Models/Floor.glb" id="1_4ae40"]
+[ext_resource type="Environment" uid="uid://cpq0ejvc3ih5c" path="res://test_environment.tres" id="2_dyqk6"]
+[ext_resource type="PackedScene" uid="uid://0a2xqdmnfwgj" path="res://cute_bot/cute_bot.tscn" id="3_wfl0k"]
+[ext_resource type="Script" uid="uid://bjrauamnrug1t" path="res://spider_bot/follow_camera.gd" id="4_hpbg5"]
+[ext_resource type="Script" uid="uid://cdj3fw1dgism2" path="res://scripts/Victory_Area.gd" id="5_1qb7c"]
+[ext_resource type="PackedScene" uid="uid://bbg0v5h3jpwww" path="res://Foods.tscn" id="6_xmjrc"]
+[ext_resource type="Texture2D" uid="uid://d0lj5xkqpt40c" path="res://resources/Wall.png" id="7_3qrju"]
+[ext_resource type="Texture2D" uid="uid://8m6j8eq8fryc" path="res://resources/Engineer Notes.png" id="8_dyqk6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7h64q"]
 size = Vector3(200.0456, 1, 190.62195)
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_nxtc6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rarhs"]
 size = Vector3(10, 1, 10)
@@ -137,7 +141,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vsurf")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vcsgt"]
-albedo_texture = ExtResource("6_c01mt")
+albedo_texture = ExtResource("7_3qrju")
 uv1_scale = Vector3(0.1, 0.1, 0.1)
 uv1_offset = Vector3(0, -0.501, 0)
 uv1_triplanar = true
@@ -152,13 +156,23 @@ points = PackedVector3Array(-0.5, -5, -15, 0.5, -5, -15, -0.5, -5, 14.999998, -0
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nxtc6"]
 points = PackedVector3Array(-0.5, -5, -15, 0.5, -5, -15, -0.5, -5, 14.999998, -0.5, 5, -15, 0.5, 5, -15, 0.5, -5, 14.999998, -0.5, 5, 14.999998, 0.5, 5, 14.999998)
 
-[node name="Node3D" type="Node3D" unique_id=1018644971]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+albedo_texture = ExtResource("7_3qrju")
+
+[sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
+material = SubResource("StandardMaterial3D_g4v7s")
+size = Vector3(16, 1, 30)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jlsqs"]
+points = PackedVector3Array(8, 0.5, 14.999998, 8, -0.5, 14.999998, 8, 0.5, -15, -8, 0.5, 14.999998, -8, -0.5, 14.999998, 8, -0.5, -15, -8, 0.5, -15, -8, -0.5, -15)
+
+[node name="Level 1" type="Node3D" unique_id=1018644971]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=52246290]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Floor" parent="." unique_id=969005094 instance=ExtResource("5_fos0i")]
+[node name="Floor" parent="." unique_id=969005094 instance=ExtResource("1_4ae40")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -5.875, -1.112, 4.211)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=1676797442 groups=["dirty"]]
@@ -168,20 +182,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.017426, 0.07256603, -80.26
 shape = SubResource("BoxShape3D_7h64q")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=993865804]
-environment = ExtResource("3_vcsgt")
+environment = ExtResource("2_dyqk6")
 
-[node name="CuteBot" parent="." unique_id=1869795653 instance=ExtResource("5_vcsgt")]
+[node name="CuteBot" parent="." unique_id=1869795653 instance=ExtResource("3_wfl0k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 max_leg_reach = 1.5
 max_lean = 2.0
 com_balance_bias = 0.4
 com_visual_lerp_speed = 3.0
 
+[node name="FollowCamera" parent="CuteBot" index="12" unique_id=728271842]
+process_mode = 4
+
 [node name="Body Convex Col8 " parent="CuteBot/Body2" parent_id_path=PackedInt32Array(1869795653, 318634261) index="1" unique_id=1941240132 groups=["Self"]]
 
+[node name="SpringArm3D" type="SpringArm3D" parent="CuteBot" unique_id=476238358]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, -1, 0)
+shape = SubResource("SeparationRayShape3D_nxtc6")
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="CuteBot/SpringArm3D" unique_id=1447601911]
+transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 0, 3.093895, 4.2952447)
+script = ExtResource("4_hpbg5")
+
 [node name="VictoryArea" type="Area3D" parent="." unique_id=712089671]
-transform = Transform3D(0.25000006, 0, 0, 0, 0.25000006, 0, 0, 0, 0.25000006, -0.34294677, 0.67499983, -6.113693)
-script = ExtResource("5_c01mt")
+transform = Transform3D(0.25000006, 0, 0, 0, 0.25000006, 0, 0, 0, 0.25000006, 2.532054, 0.67499983, -14.67131)
+script = ExtResource("5_1qb7c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="VictoryArea" unique_id=1290227930]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 2.500001, 0, -11.671572)
@@ -189,72 +215,28 @@ shape = SubResource("BoxShape3D_rarhs")
 debug_color = Color(0.39588127, 0.61138725, 0, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="VictoryArea" unique_id=563295951]
-transform = Transform3D(4.999999, 0, 0, 0, 1, 0, 0, 0, 4.999999, 2.5078034, 0, -11.671713)
+transform = Transform3D(4.999999, 0, 0, 0, 1, 0, 0, 0, 4.999999, 2.5078034, 0, -11.671711)
 mesh = SubResource("BoxMesh_vcsgt")
 
-[node name="Foods" parent="." unique_id=938991637 instance=ExtResource("5_nxtc6")]
+[node name="Foods" parent="." unique_id=938991637 instance=ExtResource("6_xmjrc")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.021958232, 1.8149967, -0.01895541)
 
 [node name="Counters" type="Node3D" parent="." unique_id=730727576]
+visible = false
 
-[node name="Counter2" type="Node3D" parent="Counters" unique_id=874537872]
+[node name="Counter1" type="Node3D" parent="Counters" unique_id=874537872]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -3.908569, 0, -16.998667)
 
-[node name="Counter" type="MeshInstance3D" parent="Counters/Counter2" unique_id=1695338766]
+[node name="Counter" type="MeshInstance3D" parent="Counters/Counter1" unique_id=1695338766]
 layers = 3
 mesh = SubResource("ArrayMesh_3wb4y")
 
-[node name="Counter Col " type="StaticBody3D" parent="Counters/Counter2" unique_id=1318757203]
+[node name="Counter Col " type="StaticBody3D" parent="Counters/Counter1" unique_id=1318757203]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Counters/Counter2/Counter Col " unique_id=2016772264]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Counters/Counter1/Counter Col " unique_id=2016772264]
 shape = SubResource("ConcavePolygonShape3D_7gtxb")
 
-[node name="Handles" type="MeshInstance3D" parent="Counters/Counter2" unique_id=1255283391]
-mesh = SubResource("ArrayMesh_ngcup")
-
-[node name="Counter3" type="Node3D" parent="Counters" unique_id=1766425429]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -2, 0, -17)
-
-[node name="Counter" type="MeshInstance3D" parent="Counters/Counter3" unique_id=135230778]
-layers = 3
-mesh = SubResource("ArrayMesh_3wb4y")
-
-[node name="Counter Col " type="StaticBody3D" parent="Counters/Counter3" unique_id=716959414]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Counters/Counter3/Counter Col " unique_id=335532449]
-shape = SubResource("ConcavePolygonShape3D_7gtxb")
-
-[node name="Handles" type="MeshInstance3D" parent="Counters/Counter3" unique_id=2117486354]
-mesh = SubResource("ArrayMesh_ngcup")
-
-[node name="Counter4" type="Node3D" parent="Counters" unique_id=473758049]
-transform = Transform3D(-0.9, 0, 1.3589622e-07, 0, 0.9, 0, -1.3589622e-07, 0, -0.9, -2.0021408, 0, -18.825739)
-
-[node name="Counter" type="MeshInstance3D" parent="Counters/Counter4" unique_id=2046702028]
-layers = 3
-mesh = SubResource("ArrayMesh_3wb4y")
-
-[node name="Counter Col " type="StaticBody3D" parent="Counters/Counter4" unique_id=40855987]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Counters/Counter4/Counter Col " unique_id=313196746]
-shape = SubResource("ConcavePolygonShape3D_7gtxb")
-
-[node name="Handles" type="MeshInstance3D" parent="Counters/Counter4" unique_id=892376319]
-mesh = SubResource("ArrayMesh_ngcup")
-
-[node name="Counter5" type="Node3D" parent="Counters" unique_id=1488598625]
-transform = Transform3D(-0.9, 0, 2.360415e-07, 0, 0.9, 0, -2.360415e-07, 0, -0.9, -3.9367604, 0, -18.837233)
-
-[node name="Counter" type="MeshInstance3D" parent="Counters/Counter5" unique_id=1137551706]
-layers = 3
-mesh = SubResource("ArrayMesh_3wb4y")
-
-[node name="Counter Col " type="StaticBody3D" parent="Counters/Counter5" unique_id=1720331181]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Counters/Counter5/Counter Col " unique_id=816964786]
-shape = SubResource("ConcavePolygonShape3D_7gtxb")
-
-[node name="Handles" type="MeshInstance3D" parent="Counters/Counter5" unique_id=681857755]
+[node name="Handles" type="MeshInstance3D" parent="Counters/Counter1" unique_id=1255283391]
 mesh = SubResource("ArrayMesh_ngcup")
 
 [node name="Walls" type="Node3D" parent="." unique_id=220871963]
@@ -280,6 +262,44 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -4, 7.5)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/MeshInstance3D2/StaticBody3D" unique_id=499010656]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 4, -7.5)
 shape = SubResource("ConvexPolygonShape3D_nxtc6")
+
+[node name="Roof" type="MeshInstance3D" parent="Walls" unique_id=1888675160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 9, -7.5)
+mesh = SubResource("BoxMesh_yf5fn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Walls/Roof" unique_id=1821929590]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Roof/StaticBody3D" unique_id=1240141288]
+shape = SubResource("ConvexPolygonShape3D_jlsqs")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Walls" unique_id=129811748]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 4, -22)
+layers = 3
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Walls/MeshInstance3D3" unique_id=778016860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -4, 7.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/MeshInstance3D3/StaticBody3D" unique_id=556664196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 4, -7.5)
+shape = SubResource("ConvexPolygonShape3D_nxtc6")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Walls" unique_id=1490596970]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.0000012, 4, 7)
+layers = 3
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Walls/MeshInstance3D4" unique_id=2078065972]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -4, 7.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/MeshInstance3D4/StaticBody3D" unique_id=839699624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 4, -7.5)
+shape = SubResource("ConvexPolygonShape3D_nxtc6")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1879294070]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -2.5, 1.75, -17.5)
+billboard = 1
+texture = ExtResource("8_dyqk6")
 
 [connection signal="body_entered" from="VictoryArea" to="VictoryArea" method="_on_body_entered"]
 
