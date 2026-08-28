@@ -14,8 +14,7 @@ func _draw():
 		"U / I / J / K or Tab — select leg",
 		"W A S D — move foot (camera relative)",
 		"E / Q — raise / lower foot",
-		"Space — stomp foot down",
-		"Arrow keys — lean body",
+		"Ctrl select - select a leg to pivot around",
 	]
 	var y := 24.0
 	for line in lines:

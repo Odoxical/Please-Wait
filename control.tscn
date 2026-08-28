@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bw0giy21tflux"]
+
+[node name="Control" type="Control" unique_id=750765941]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=1409945725]
+layout_mode = 0
+offset_right = 1383.0
+offset_bottom = 123.0
+text = "Godot decided to be a bastard, and my post viral fatiuge is to intense for me to care much right now. I am far too tired, sore, itchy, and overall Irate to care."

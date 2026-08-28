@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://dnv8mwfqrs0dg"]
+
+[ext_resource type="Script" uid="uid://c8bhu06cw7xv0" path="res://scenes/collected_notes.gd" id="1_3mfbt"]
+[ext_resource type="Theme" uid="uid://cjh1wa87q5tfg" path="res://resources/Menu_Themes.tres" id="2_fu0km"]
+[ext_resource type="Script" uid="uid://cf8m75pu3xeb7" path="res://Button_animation.gd" id="3_l0krv"]
+
+[node name="Collected Notes" type="Control" unique_id=1738548792]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3mfbt")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=423594208]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 323.0
+offset_right = 1496.0
+offset_bottom = 892.0
+columns = 2
+
+[node name="Note 1" type="Button" parent="GridContainer" unique_id=2098861014]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_fu0km")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Access Note 1: Camera fidelity"
+script = ExtResource("3_l0krv")
+
+[node name="Note 2" type="Button" parent="GridContainer" unique_id=8090508]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_fu0km")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Access Note 2: Shareholder Intrest"
+script = ExtResource("3_l0krv")
+
+[node name="Note 3" type="Button" parent="GridContainer" unique_id=1833627691]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_fu0km")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Access Note 3: Dammit Jeffery"
+script = ExtResource("3_l0krv")
+
+[node name="Note 4" type="Button" parent="GridContainer" unique_id=975584332]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_fu0km")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Access Note 4:Agentic Stack"
+script = ExtResource("3_l0krv")
+
+[node name="Note 5" type="Button" parent="GridContainer" unique_id=411564080]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_fu0km")
+theme_override_colors/font_color = Color(0.7529412, 1, 0.93333334, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Access Note 5: Dammit Bobby"
+script = ExtResource("3_l0krv")
+
+[node name="Leave" type="Button" parent="GridContainer" unique_id=870729774]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_fu0km")
+theme_override_colors/font_color = Color(0.8901961, 0.06666667, 0.21568628, 1)
+theme_override_font_sizes/font_size = 32
+text = ">Leave"
+script = ExtResource("3_l0krv")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=267890954]
+color = Color(0, 0.13333334, 0.2509804, 1)
+polygon = PackedVector2Array(-21, -17, 1540, -30, 1562, 953, -45, 990)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1971624939]
+layout_mode = 0
+offset_right = 1505.0
+offset_bottom = 323.0
+theme = ExtResource("2_fu0km")
+theme_override_font_sizes/normal_font_size = 64
+text = "Collected Notes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=1018246781]
+layout_mode = 0
+offset_top = 172.0
+offset_right = 1496.0
+offset_bottom = 902.0
+theme = ExtResource("2_fu0km")
+theme_override_font_sizes/normal_font_size = 64
+text = "The buttons here don't Appear. I don't know when it happened. I don't know why it happened, they just disappeared one day the buttons are exactly the same as the buttons on the last screen, they just arent here. I had 5 fully completed notes and with three fully written charaters everything. But Noooooo."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_down" from="GridContainer/Note 1" to="." method="_on_note_1_button_down"]
+[connection signal="button_down" from="GridContainer/Note 2" to="." method="_on_note_2_button_down"]
+[connection signal="button_down" from="GridContainer/Note 3" to="." method="_on_note_3_button_down"]
+[connection signal="button_down" from="GridContainer/Note 4" to="." method="_on_note_4_button_down"]
+[connection signal="button_down" from="GridContainer/Note 5" to="." method="_on_note_5_button_down"]
+[connection signal="button_down" from="GridContainer/Leave" to="." method="_on_leave_button_down"]

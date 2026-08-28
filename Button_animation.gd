@@ -1,8 +1,13 @@
 extends Button
 
+var locked = false  # set once by the parent; true means "never blink, stay off"
+
 func _process(delta: float) -> void:
-	var time=Time.get_time_dict_from_system().second %10
-	if time % 2 != 0 and not is_hovered():
-		disabled=true
+	if locked:
+		disabled = true
+		return
+	var is_odd_second = Time.get_time_dict_from_system().second % 2 != 0
+	if is_odd_second and not is_hovered():
+		disabled = true
 	else:
-		disabled=false
+		disabled = false

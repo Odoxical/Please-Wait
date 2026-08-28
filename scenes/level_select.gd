@@ -8,13 +8,13 @@ func _on_level_2_button_down() -> void:
 	get_tree().change_scene_to_file("res://scenes/Level 2.tscn")
 
 func _on_level_3_button_down() -> void:
-	get_tree().change_scene_to_file("res://scenes/Level 3.tscn")
+	get_tree().change_scene_to_file("res://control.tscn")
 
 func _on_level_4_button_down() -> void:
-	get_tree().change_scene_to_file("res://scenes/Level 4.tscn")
+	get_tree().change_scene_to_file("res://control.tscn")
 
 func _on_level_5_button_down() -> void:
-	get_tree().change_scene_to_file("res://scenes/Level 5.tscn")
+	get_tree().change_scene_to_file("res://control.tscn")
 
 func _on_leave_button_down() -> void:
 	get_tree().change_scene_to_file("res://scenes/start_screen.tscn")

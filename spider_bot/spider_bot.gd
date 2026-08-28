@@ -106,8 +106,6 @@ func _create_highlight():
 
 func _select_leg(leg: Node3D):
 	selected_leg = leg
-	print("Selected leg: " + leg_names[leg])
-
 func _toggle_pivot(leg: Node3D):##
 	if is_pivoting && pivot_leg == leg:##
 		is_pivoting = false##
